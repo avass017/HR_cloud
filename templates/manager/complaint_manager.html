@@ -1,0 +1,123 @@
+{% extends "manager/manager.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+
+    <!-- Summary Card -->
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm border-0 text-center p-3">
+            <h6 class="text-muted">Total Complaints</h6>
+            <h3 class="font-weight-bold text-danger">{{ data|length }}</h3>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="col-md-8 mb-3 text-right">
+        <h3 class="font-weight-bold">
+            <i class="mdi mdi-alert-circle text-danger"></i>
+            Employee Complaints
+        </h3>
+    </div>
+
+    <!-- Main Card -->
+    <div class="col-12">
+        <div class="card shadow-lg border-0">
+            <div class="card-body">
+
+                <!-- Search Bar -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="text-muted mb-0">
+                        View and monitor employee submitted complaints.
+                    </p>
+
+                    <input type="text"
+                           class="form-control w-25 rounded-pill"
+                           placeholder="Search complaints...">
+                </div>
+
+                <!-- Complaints Table -->
+                <div class="table-responsive">
+                    <table class="table align-middle premium-table">
+
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Subject</th>
+                                <th>Department</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for i in data %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+
+                                <td class="font-weight-semibold">
+                                    {{ i.subject }}
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-light px-3 py-2">
+                                        {{ i.department }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="text-muted">
+                                        {{ i.date }}
+                                    </span>
+                                </td>
+                            </tr>
+
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center py-5 text-muted">
+                                    <i class="mdi mdi-alert-outline mdi-36px d-block mb-3"></i>
+                                    No complaints found.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+
+/* Premium Table */
+.premium-table thead {
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 600;
+}
+
+.premium-table tbody tr {
+    border-bottom: 1px solid #f1f1f1;
+    transition: all 0.2s ease-in-out;
+}
+
+.premium-table tbody tr:hover {
+    background-color: #fff5f5;
+    transform: scale(1.01);
+}
+
+.card {
+    border-radius: 18px;
+}
+
+.badge-light {
+    background-color: #eef2f7;
+    font-weight: 500;
+}
+
+</style>
+
+{% endblock %}

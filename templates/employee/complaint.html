@@ -1,13 +1,98 @@
 {% extends "employee/dashemp.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-{%load crispy_forms_tags %}
 
+<div class="container py-5">
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit">send</button>
-</form>
+    <!-- Page Header -->
+    <div class="mb-4 text-center">
+        <h2 class="fw-bold text-dark">Submit Your Form</h2>
+        <p class="text-muted">Please fill out the required information carefully</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card form-card mx-auto shadow-sm p-4" style="max-width: 700px;">
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form|crispy }}
+
+            <div class="d-flex justify-content-end mt-4 gap-2">
+                <a href="{% url 'complaint_view' %}" class="btn btn-outline-secondary rounded-pill px-4">
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-primary rounded-pill px-4">
+                    Send
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<style>
+/* ===== PAGE BACKGROUND ===== */
+body {
+    background-color: #f8f9fa !important;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== FORM CARD ===== */
+.form-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== HEADINGS ===== */
+h2 {
+    color: #0d6efd;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    transition: all 0.25s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* ===== FORM INPUTS ===== */
+input, select, textarea {
+    border-radius: 8px !important;
+    border: 1px solid #ced4da !important;
+    padding: 10px !important;
+    background-color: #ffffff !important;
+    color: #495057 !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+}
+
+</style>
 
 {% endblock %}

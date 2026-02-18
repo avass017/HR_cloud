@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 {%load crispy_forms_tags %}
 <html lang="en">
@@ -24,17 +25,23 @@
     <link rel="stylesheet" href=" {% static 'assets/css/style.css' %} ">
     <!-- End layout styles -->
     <link rel="shortcut icon" href=" {% static 'assets/images/favicon.png' %} " />
- <style>
+<style>
 
-/* ===== FULL PAGE BACKGROUND IMAGE ===== */
+/* ===== FULL PAGE BACKGROUND ===== */
 body,
 body.sidebar-dark,
 body.dark-theme {
     background:
-        linear-gradient(rgba(0, 102, 204, 0.6), rgba(0, 102, 204, 0.6)),
+        linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)),
         url("https://www.hrmanagementapp.com/wp-content/uploads/2022/12/company-wide-meetings.png") no-repeat center center fixed !important;
 
     background-size: cover !important;
+    color: #000 !important;
+}
+
+/* ===== FORCE ALL TEXT BLACK ===== */
+body, p, h1, h2, h3, h4, h5, h6, span, a, label {
+    color: #000 !important;
 }
 
 /* ===== CONTENT AREA ===== */
@@ -45,16 +52,40 @@ body.dark-theme {
 
 /* ===== SIDEBAR ===== */
 .sidebar {
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+}
+
+/* Sidebar text */
+.sidebar .nav .nav-link,
+.sidebar .menu-title,
+.sidebar .nav-category {
+    color: #000 !important;
 }
 
 /* ===== NAVBAR ===== */
 .navbar {
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+}
+
+/* Navbar text */
+.navbar .nav-link,
+.navbar-profile-name {
+    color: #000 !important;
+}
+
+/* Cards */
+.card {
+    background: #ffffff !important;
+    color: #000 !important;
+}
+
+/* Footer */
+.footer {
+    background: #ffffff !important;
+    color: #000 !important;
 }
 
 </style>
-
 
 
   </head>
@@ -63,7 +94,7 @@ body.dark-theme {
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href=" {% static 'index.html' %} "></a>
+          <a class="sidebar-brand brand-logo" href=" {% static 'index.html' %} "><img src=" {% static 'assets/images/logo.svg' %} " alt="logo" /></a>
           <a class="sidebar-brand brand-logo-mini" href=" {% static 'index.html' %} "><img src=" {% static 'assets/images/logo-mini.svg' %} " alt="logo" /></a>
         </div>
         <ul class="nav">
@@ -116,9 +147,6 @@ body.dark-theme {
               </div>
             </div>
           </li>
-          <li class="nav-item nav-category">
-            <span class="nav-link">Navigation</span>
-          </li>
           <li class="nav-item menu-items">
             <a class="nav-link" href=" {% static 'index.html' %} ">
               <span class="menu-icon">
@@ -164,15 +192,16 @@ body.dark-theme {
   </a>
 </li>
                   <li class="nav-item menu-items">
-  <a class="nav-link" href="">
+  <a class="nav-link" href="{% url 'complaint_m' %}">
     <span class="menu-icon">
       <i class="mdi mdi-alert-circle"></i>
     </span>
     <span class="menu-title">Complaints</span>
   </a>
 </li>
+
                   <li class="nav-item menu-items">
-  <a class="nav-link" href="">
+  <a class="nav-link" href="{% url 'noficication' %}">
     <span class="menu-icon">
     <i class="mdi mdi-bell-outline"></i>
 
@@ -692,7 +721,7 @@ body.dark-theme {
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">WELCOME</h4>
+                    <h4 class="card-title"></h4>
 
                     {% block content %}
                     {% endblock %}

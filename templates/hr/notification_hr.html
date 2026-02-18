@@ -1,0 +1,104 @@
+{% extends "hr/dashhr.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+
+/* ===== FORCE FULL WHITE BACKGROUND ===== */
+body,
+body.sidebar-light,
+body.dark-theme {
+    background: #ffffff !important;
+    background-image: none !important;
+}
+
+.content-wrapper,
+.main-panel {
+    background: #ffffff !important;
+}
+
+/* ===== PAGE HEADER ===== */
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.page-title{
+    font-weight:600;
+    color:#000000;
+    margin:0;
+}
+
+/* ===== NOTIFICATION CARD ===== */
+.notification-card{
+    border:none;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    padding:20px;
+    margin-bottom:20px;
+    transition:0.3s ease;
+    background:#ffffff;
+}
+
+.notification-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+}
+
+.notification-message{
+    font-size:16px;
+    font-weight:500;
+    color:#000000;
+}
+
+.notification-date{
+    font-size:14px;
+    color:#555555;
+    margin-top:8px;
+}
+
+/* ===== EMPTY BOX ===== */
+.empty-box{
+    padding:40px;
+    text-align:center;
+    background:#ffffff;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    color:#555555;
+}
+
+</style>
+
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="page-header">
+        <h3 class="page-title">Notifications</h3>
+    </div>
+
+    {% for i in data %}
+
+        <div class="notification-card">
+            <div class="notification-message">
+                {{ i.message }}
+            </div>
+
+            <div class="notification-date">
+                {{ i.date_time|date:"d M Y • h:i A" }}
+            </div>
+        </div>
+
+    {% empty %}
+
+        <div class="empty-box">
+            No Notifications Available
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

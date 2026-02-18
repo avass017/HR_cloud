@@ -45,4 +45,11 @@ urlpatterns = [
  path('reply_add',hrviews.reply_add,name='reply_add'),
  path('reply_view',hrviews.reply_view,name='reply_view'),
  path('reply_view',empviews.reply_view,name='reply_view'),
+ path('noficication',managerviews.noficication,name='noficication'),
+ path('send_notification',managerviews.send_notification,name='send_notification'),
+ path('complaint_m',managerviews.complaint_m,name='complaint_m'),
+ path('noficication_hr',hrviews.noficication_hr,name='noficication_hr'),
+ path('overtime',empviews.overtime,name='overtime'),
+ path('over_view',empviews.over_view,name='over_view'),
+ path('over_view_hr',hrviews.over_view_hr,name='over_view_hr'),
 ]

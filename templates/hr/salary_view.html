@@ -1,51 +1,192 @@
 {% extends "hr/dashhr.html" %}
+{% load crispy_forms_tags %}
 
-{%load crispy_forms_tags %}
 {% block content %}
-<table class="table table-bordered table-striped">
-    <h2>project-running</h2>
-    <thead class="dark">
-        <tr>
-            <th>Slno</th>
-            <th>Name</th>
-            <th> Salary</th>
-            <th> Debited_date</th>
-            <th>department</th>
 
+<style>
+/* ===== PAGE STYLING ===== */
+body, .container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
 
+.container {
+    margin-top: 50px;
+}
 
-        </tr>
-    </thead>
+/* ===== PAGE HEADER ===== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+.page-title {
+    font-weight: 700;
+    font-size: 32px;
+    color: #0d6efd;
+}
 
-    <tbody>
-    {% for i in data %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
+/* ===== ADD BUTTON ===== */
+.btn-add {
+    background-color: #0d6efd;
+    color: #fff;
+    border-radius: 30px;
+    padding: 10px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    transition: all 0.3s ease-in-out;
+}
+.btn-add:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
 
-            <td>{{i.payroll_details}}</td>
-            <td>{{ i.salary }}</td>
-            <td>{{ i.date }}</td>
+/* ===== TABLE CARD ===== */
+.table-card {
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    padding: 30px;
+}
 
-             <td>{{ i.department }}</td>
+/* ===== TABLE STYLING ===== */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
 
+.table thead th {
+    background: #f1f3f6;
+    font-weight: 600;
+    font-size: 15px;
+    border-bottom: 2px solid #dee2e6;
+    color: #495057;
+    text-align: center;
+    padding: 12px 15px;
+}
 
+.table tbody td {
+    vertical-align: middle;
+    font-size: 14px;
+    color: #495057;
+    text-align: center;
+    padding: 12px 15px;
+    transition: background 0.25s ease;
+}
 
+.table tbody tr:hover {
+    background-color: #f9fafb;
+}
 
+/* ===== STATUS BADGES ===== */
+.badge-paid {
+    background-color: #198754;
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-block;
+}
+.badge-pending {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-block;
+}
 
-           <td>
+/* ===== ACTION BUTTON ===== */
+.btn-debit {
+    background-color: #0d6efd;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 18px;
+    border-radius: 20px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.25s ease;
+}
+.btn-debit:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
 
-                <button class="btn btn-success">
-Debit              </button>
+/* ===== EMPTY ROW ===== */
+.empty-row {
+    text-align: center;
+    padding: 35px;
+    color: #6c757d;
+    font-style: italic;
+    font-size: 16px;
+}
+</style>
 
-            </td>
+<div class="container">
 
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="7" class="text-center">No  found</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <!-- Page Header -->
+    <div class="page-header">
+        <h4 class="page-title">Payroll Management</h4>
+        <a href="{% url 'salary_add' %}" class="btn-add">
+            <i class="bi bi-plus-lg"></i> Add Payroll
+        </a>
+    </div>
+
+    <!-- Table Card -->
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table align-middle text-center">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Employee</th>
+                        <th>Salary</th>
+                        <th>Debited Date</th>
+                        <th>Department</th>
+                        <th>Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.payroll_details }}</td>
+                            <td>{{ i.salary }}</td>
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.department }}</td>
+                            <td>
+
+                                    <span class="badge-paid">Paid</span>
+
+                            </td>
+
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="empty-row">No payroll records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
 
 {% endblock %}

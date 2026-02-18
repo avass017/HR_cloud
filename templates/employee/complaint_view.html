@@ -1,49 +1,109 @@
 {% extends "employee/dashemp.html" %}
+{% load crispy_forms_tags %}
 
-{%load crispy_forms_tags %}
 {% block content %}
-<table class="table table-bordered table-striped">
-    <h2>project-running</h2>
-    <thead class="dark">
-        <tr>
-            <th>Slno</th>
-            <th>Name</th>
-            <th> subject</th>
-            <th> department</th>
-            <th>date</th>
 
+<div class="container py-5">
 
+    <!-- Page Header with Add Complaint Button -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">Employee Complaints</h2>
+        <a href="{% url 'complaint_add' %}" class="btn btn-primary rounded-pill px-4 py-2">
+            + Add Complaint
+        </a>
+    </div>
 
-        </tr>
-    </thead>
+    <!-- Table Card -->
+    <div class="card shadow-sm rounded-4 p-4">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle text-center mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Name</th>
+                        <th>Subject</th>
+                        <th>Department</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.complaint_details }}</td>
+                            <td>{{ i.subject }}</td>
+                            <td>{{ i.department }}</td>
+                            <td>{{ i.date }}</td>
+                            <td>
+                                <a href="{% url 'reply_view' %}" class="btn btn-sm btn-primary rounded-pill">
+                                    Reply
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                No complaints found
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <tbody>
-    {% for i in data %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
+</div>
 
-            <td>{{i.complaint_details}}</td>
-            <td>{{ i.subject }}</td>
-            <td>{{ i.department }}</td>
+<style>
+/* ===== PAGE STYLING ===== */
+body {
+    background-color: #f8f9fa !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-             <td>{{ i.date }}</td>
+/* ===== TABLE CARD ===== */
+.card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
 
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
 
+/* ===== TABLE STYLING ===== */
+.table thead th {
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
 
+.table tbody tr:hover {
+    background-color: #f1f3f6;
+    transition: 0.2s ease;
+}
 
-<td>
-            <a class="dropdown-item"
-                   href="{% url 'reply_view' %}">
-                    Reply
-                </a>
-</td>
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="7" class="text-center">No  found</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+/* ===== BUTTON STYLING ===== */
+.btn-primary {
+    background-color: #0d6efd;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+/* ===== EMPTY ROW ===== */
+.text-muted {
+    font-style: italic;
+    font-size: 14px;
+}
+</style>
 
 {% endblock %}

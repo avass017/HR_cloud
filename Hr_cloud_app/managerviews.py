@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from Hr_cloud_app.forms import HrRegister, EmployeeRegister, NotificationRegister
-from Hr_cloud_app.models import Hr, Employee, Payroll, Work
+from Hr_cloud_app.models import Hr, Employee, Payroll, Work, Notification, Complaint
 
 
 def hr_view(request):
@@ -63,6 +63,14 @@ def send_notification(request):
         form = NotificationRegister(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('project_view')   # change to your url name
+            return redirect('noficication')
 
-    return render(request, 'send_notification.html', {'form': form})
+    return render(request, 'manager/notification_add.html', {'form': form})
+
+def noficication(request):
+    data=Notification.objects.all()
+    return render(request,'manager/notifications.html',{'data':data})
+
+def complaint_m(request):
+    data=Complaint.objects.all()
+    return render(request,'manager/complaint_manager.html',{'data':data})

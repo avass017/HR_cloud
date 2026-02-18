@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from Hr_cloud_app.models import Login, Hr, Employee, Work, Payroll, Complaint, Reply, Notification
+from Hr_cloud_app.models import Login, Hr, Employee, Work, Payroll, Complaint, Reply, Notification, Overtime
 
 
 class LoginRegister(UserCreationForm):
@@ -74,4 +74,13 @@ class NotificationRegister(forms.ModelForm):
                 'rows': 4,
                 'placeholder': 'Enter notification message here...'
             }),
+        }
+
+class OvertimeRegister(forms.ModelForm):
+    class Meta:
+        model = Overtime
+        fields = '__all__'
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+
         }

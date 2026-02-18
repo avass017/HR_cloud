@@ -1,51 +1,135 @@
 {% extends "manager/manager.html" %}
+{% load crispy_forms_tags %}
 
-{%load crispy_forms_tags %}
 {% block content %}
-<table class="table table-bordered table-striped">
-    <h2>project-running</h2>
-    <thead class="dark">
-        <tr>
-            <th>Slno</th>
-            <th>Name</th>
-            <th> Salary</th>
-            <th> Debited_date</th>
-            <th>department</th>
 
+<div class="row">
 
+  <!-- Summary Cards -->
+  <div class="col-md-4 mb-3">
+    <div class="card shadow-sm border-0 text-center p-3">
+      <h6 class="text-muted">Total Records</h6>
+      <h3 class="font-weight-bold text-success">{{ data|length }}</h3>
+    </div>
+  </div>
 
-        </tr>
-    </thead>
+  <div class="col-md-8 mb-3 text-right">
+    <h3 class="font-weight-bold">
+      <i class="mdi mdi-cash-multiple text-success"></i>
+      Payroll Management
+    </h3>
+  </div>
 
-    <tbody>
-    {% for i in data %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
+  <!-- Main Payroll Card -->
+  <div class="col-12">
+    <div class="card shadow-lg border-0">
+      <div class="card-body">
 
-            <td>{{i.payroll_details}}</td>
-            <td>{{ i.salary }}</td>
-            <td>{{ i.date }}</td>
+        <div class="table-responsive">
+          <table class="table align-middle premium-table">
 
-             <td>{{ i.department }}</td>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Employee</th>
+                <th>Salary</th>
+                <th>Debited Date</th>
+                <th>Department</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
 
+            <tbody>
+              {% for i in data %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
 
+                <td class="font-weight-semibold">
+                  {{ i.payroll_details }}
+                </td>
 
+                <td>
+                  <span class="salary-badge">
+                    ₹ {{ i.salary }}
+                  </span>
+                </td>
 
+                <td>{{ i.date }}</td>
 
-           <td>
+                <td>
+                  <span class="badge badge-light px-3 py-2">
+                    {{ i.department }}
+                  </span>
+                </td>
 
-                <button class="btn btn-success">
-Debit              </button>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-success rounded-pill px-4">
+                    <i class="mdi mdi-bank-transfer"></i> Debit
+                  </button>
+                </td>
+              </tr>
 
-            </td>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center py-5 text-muted">
+                  <i class="mdi mdi-cash-remove mdi-36px d-block mb-3"></i>
+                  No payroll records available.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
 
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="7" class="text-center">No  found</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+
+/* Premium Table Styling */
+.premium-table thead {
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 600;
+}
+
+.premium-table tbody tr {
+    border-bottom: 1px solid #f1f1f1;
+    transition: all 0.2s ease-in-out;
+}
+
+.premium-table tbody tr:hover {
+    background-color: #f4fff6;
+    transform: scale(1.01);
+}
+
+.card {
+    border-radius: 18px;
+}
+
+.salary-badge {
+    background-color: #e6f9f0;
+    color: #28a745;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.badge-light {
+    background-color: #eef2f7;
+    font-weight: 500;
+}
+
+.btn-success {
+    transition: 0.3s;
+}
+
+.btn-success:hover {
+    background-color: #1e7e34;
+}
+
+</style>
 
 {% endblock %}

@@ -1,55 +1,190 @@
 {% extends "employee/dashemp.html" %}
+{% load crispy_forms_tags %}
 
-{%load crispy_forms_tags %}
 {% block content %}
-<table class="table table-bordered table-striped">
-    <h2>project-running</h2>
-    <thead class="dark">
-        <tr>
-            <th>Slno</th>
-            <th>work_name</th>
-            <th> work_duration</th>
-            <th> employee_name</th>
-            <th>department</th>
-            <th>Starting date</th>
+<style>
+    /* ===== FORCE FULL PAGE WHITE ===== */
+     body,
+    html,
+    .wrapper,
+    .main-panel,
+    .content-wrapper,
+    .container-fluid {
+        background-color: #ffffff !important;
+    }
+
+    .content-wrapper {
+        padding: 30px;
+    }
+
+    /* ===== HEADER ===== */
+    .page-header h3 {
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 5px;
+    }
+
+    .page-header p {
+        color: #64748b;
+        margin-bottom: 25px;
+    }
+
+    /* ===== STAT CARDS ===== */
+    .stat-card {
+        background: #ffffff !important;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        transition: 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+    }
+
+    .stat-number {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2563eb;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    /* ===== TABLE CARD ===== */
+    .table-card {
+        margin-top: 30px;
+        border-radius: 15px;
+        background: #ffffff !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        border: none;
+    }
+
+    .table thead {
+        background: #111827;
+        color: #ffffff;
+    }
+
+    .table th,
+    .table td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 14px;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    /* ===== STATUS BADGE ===== */
+    .status-badge {
+        padding: 6px 14px;
+        border-radius: 25px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .status-started {
+        background-color: #dcfce7;
+        color: #16a34a;
+    }
+
+    .btn-start {
+        border-radius: 25px;
+        padding: 6px 16px;
+        font-size: 12px;
+    }
+</style>
 
 
+<!-- ===== PAGE HEADER ===== -->
+<div class="page-header">
+    <h3>Running Projects Dashboard</h3>
+    <p>Overview and management of assigned projects</p>
+</div>
 
-        </tr>
-    </thead>
+<!-- ===== STATISTICS ROW ===== -->
+<div class="row">
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-number">{{ data|length }}</div>
+            <div class="stat-label">Total Projects</div>
+        </div>
+    </div>
 
-    <tbody>
-    {% for i in data %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-number">
+                {{ data|dictsort:"status"|length }}
+            </div>
+            <div class="stat-label">Active Projects</div>
+        </div>
+    </div>
 
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-number">{{ request.user }}</div>
+            <div class="stat-label">Logged Employee</div>
+        </div>
+    </div>
+</div>
 
-            <td>{{ i.work_name }}</td>
-            <td>{{ i.work_duration }}</td>
-            <td>{{ i.employee_name }}</td>
-             <td>{{ i.department }}</td>
-                         <td>{{ i.date }}</td>
+<!-- ===== TABLE SECTION ===== -->
+<div class="card table-card">
+    <div class="card-body">
 
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Project</th>
+                        <th>Duration</th>
+                        <th>Department</th>
+                        <th>Start Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
+                <tbody>
+                {% for i in data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            <strong>{{ i.work_name }}</strong><br>
+                            <small class="text-muted">{{ i.employee_name }}</small>
+                        </td>
+                        <td>{{ i.work_duration }}</td>
+                        <td>{{ i.department }}</td>
+                        <td>{{ i.date }}</td>
+                        <td>
+                            {% if i.status %}
+                                <span class="status-badge status-started">
+                                    Started
+                                </span>
+                            {% else %}
+                                <a href="{% url 'Start_project' i.id %}"
+                                   class="btn btn-primary btn-sm btn-start">
+                                    Start Project
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-5">
+                            No running projects available
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-
-           <td>
-              {% if i.status %}
-                <button class="btn btn-success">
-Start Project                </button>
-              {% else %}
-                <a href="{% url 'Start_project' i.id %}" class="btn btn-outline-danger">
-pending....                </a>
-              {% endif %}
-            </td>
-
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="7" class="text-center">No trip found</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    </div>
+</div>
 
 {% endblock %}

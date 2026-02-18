@@ -4,23 +4,92 @@
 {% block content %}
 
 <style>
+/* ===== PAGE CONTAINER ===== */
+.form-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+/* ===== CARD STYLE ===== */
+.form-card {
+    background-color: #ffffff;
+    padding: 35px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 700px;
+    transition: all 0.3s ease-in-out;
+}
 
+.form-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+
+/* ===== FORM TITLE ===== */
+.form-card h2 {
+    font-weight: 700;
+    font-size: 26px;
+    color: #0d6efd;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* ===== INPUTS & TEXTAREA ===== */
+input, select, textarea {
+    background-color: #ffffff !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+    font-size: 15px !important;
+    color: #495057 !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 2px rgba(13,110,253,0.15) !important;
+}
+
+/* ===== BUTTON ===== */
+.btn-primary {
+    background-color: #0d6efd;
+    color: #ffffff;
+    border-radius: 25px;
+    padding: 10px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.25s ease-in-out;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+/* ===== CENTERED BUTTON ===== */
+.text-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
 </style>
 
 <div class="form-container">
     <div class="form-card">
 
-        <h2></h2>
+        <h2>Send HR Reply</h2>
 
         <form method="POST">
             {% csrf_token %}
             {{ form|crispy }}
 
-            <div class="text-center mt-4">
-                <a href="{% url 'reply_view'  %}" class="btn btn-primary">
-    send Reply
-</a>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                    Send Reply
+                </button>
             </div>
         </form>
 

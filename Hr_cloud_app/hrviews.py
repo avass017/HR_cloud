@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from Hr_cloud_app.forms import EmployeeRegister, WorkRegister, PayrollRegister, ReplyRegister
-from Hr_cloud_app.models import Employee, Hr, Work, Payroll, Complaint, Reply
+from Hr_cloud_app.models import Employee, Hr, Work, Payroll, Complaint, Reply, Notification, Overtime
 
 
 def employee_view(request):
@@ -89,3 +89,10 @@ def reply_view(request):
     return render(request,'hr/send_reply.html',{'data':data})
 
 
+def noficication_hr(request):
+    data=Notification.objects.all()
+    return render(request,'hr/notification_hr.html',{'data':data})
+
+def over_view_hr(request):
+    data = Overtime.objects.all()
+    return render(request,'hr/overview_hr.html',{'data':data})

@@ -1,0 +1,109 @@
+{% extends "employee/dashemp.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary">Submit Your Form</h2>
+        <p class="text-muted">Fill out the required fields carefully</p>
+    </div>
+
+    <!-- Neumorphic Form Card -->
+    <div class="form-card mx-auto p-5 shadow-neu" style="max-width: 700px;">
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <div class="d-flex justify-content-end mt-4 gap-3">
+                <button type="submit" class="btn btn-submit">
+                    Submit
+                </button>
+                <a href="{% url 'over_view' %}" class="btn btn-cancel">
+                    Cancel
+                </a>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<style>
+/* ===== PAGE BACKGROUND ===== */
+body {
+    background: #e0e5ec !important;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== FORM CARD ===== */
+.form-card {
+    background: #f8f9fa;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.shadow-neu {
+    box-shadow: 8px 8px 16px #c5c9d1, -8px -8px 16px #ffffff;
+}
+
+.form-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 8px 8px 20px #c5c9d1, -8px -8px 20px #ffffff;
+}
+
+/* ===== FORM HEADINGS ===== */
+h2 {
+    font-size: 2rem;
+}
+
+/* ===== BUTTONS ===== */
+.btn-submit {
+    background: #0d6efd;
+    color: #fff;
+    border-radius: 50px;
+    padding: 10px 25px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.25s ease-in-out;
+}
+
+.btn-submit:hover {
+    background: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    border-radius: 50px;
+    padding: 10px 25px;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+    background: #f8f9fa;
+    transition: all 0.25s ease-in-out;
+}
+
+.btn-cancel:hover {
+    background: #6c757d;
+    color: #fff;
+}
+
+/* ===== FORM INPUTS ===== */
+input, select, textarea {
+    border-radius: 12px !important;
+    border: none !important;
+    padding: 12px !important;
+    background: #e0e5ec !important;
+    box-shadow: inset 6px 6px 10px #c5c9d1, inset -6px -6px 10px #ffffff;
+    color: #495057 !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    box-shadow: inset 2px 2px 5px #c5c9d1, inset -2px -2px 5px #ffffff;
+}
+</style>
+
+{% endblock %}

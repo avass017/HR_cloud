@@ -1,76 +1,134 @@
 {% extends "employee/dashemp.html" %}
+{% load crispy_forms_tags %}
 
-{%load crispy_forms_tags %}
 {% block content %}
-    <div class="card border-0 shadow rounded-4">
+
+<div class="container py-5">
+
+    <div class="card profile-card border-0">
 
         <!-- Header -->
-        <div class="card-header bg-white border-0 py-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="fw-bold mb-0">Employee Profile</h5>
-                <a href="{% url 'employe' %}" class="btn btn-sm btn-outline-secondary rounded-pill">
-                    ← Back
-                </a>
-            </div>
+        <div class="card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
+            <h4 class="fw-bold mb-0 text-dark">Employee Profile</h4>
+            <a href="{% url 'employe' %}" class="btn btn-outline-dark btn-sm px-4 rounded-pill">
+                Back
+            </a>
         </div>
 
-        <div class="card-body p-5">
-            <div class="row">
+        <!-- Body -->
+        <div class="card-body p-5 bg-white">
+
+            <div class="row g-4">
 
                 <!-- Left Profile Section -->
                 <div class="col-md-4 text-center border-end">
-                    <img src="{{data.document.url}}"
-                         class="rounded-circle shadow-sm mb-3"
-                         style="width:150px;height:150px;object-fit:cover;">
 
-                    <h5 class="fw-semibold mb-1">{{data.name}}</h5>
-                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
-                        {{data.department}}
-                    </span>
+
+
+                    <h5 class="fw-bold text-dark mb-2">{{ data.name }}</h5>
+                    <div class="text-muted">{{ data.department }}</div>
+
                 </div>
 
                 <!-- Right Details Section -->
-                <div class="col-md-8">
+                <div class="col-md-8 ps-md-5">
 
-                    <div class="row mb-4">
-                        <div class="col-md-6">
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
                             <small class="text-muted">User ID</small>
-                            <div class="fw-semibold">{{data.id}}</div>
+                            <div class="fw-semibold text-dark">{{ data.id }}</div>
                         </div>
-
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <small class="text-muted">Email</small>
-                            <div class="fw-semibold">{{data.email}}</div>
+                            <div class="fw-semibold text-dark">{{ data.email }}</div>
                         </div>
                     </div>
 
-                    <div class="row mb-4">
-                        <div class="col-md-6">
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
                             <small class="text-muted">Phone</small>
-                            <div class="fw-semibold">{{data.phone}}</div>
+                            <div class="fw-semibold text-dark">{{ data.phone }}</div>
                         </div>
-
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <small class="text-muted">Department</small>
-                            <div class="fw-semibold">{{data.department}}</div>
+                            <div class="fw-semibold text-dark">{{ data.department }}</div>
                         </div>
                     </div>
 
                     <div class="mb-4">
                         <small class="text-muted">Address</small>
-                        <div class="fw-semibold">{{data.address}}</div>
+                        <div class="fw-semibold text-dark">{{ data.address }}</div>
                     </div>
 
                     <div class="mt-4">
-                        <a href="{% url 'employee_update' employee.id %}" class="btn btn-outline-Primary">Edit</a>
-
-
-
+                        <a href="" class="btn btn-primary px-4 rounded-pill">
+                            Edit Profile
+                        </a>
                     </div>
 
                 </div>
 
             </div>
+
         </div>
+
     </div>
+
+</div>
+
+<style>
+/* ===== PAGE BACKGROUND ===== */
+body {
+    background-color: #f8f9fa !important;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== CARD STYLE ===== */
+.profile-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== TEXT COLORS ===== */
+.text-dark {
+    color: #1e1e2f !important;
+}
+
+/* ===== BUTTON ===== */
+.btn-primary {
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    transition: all 0.25s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+/* BACK BUTTON */
+.btn-outline-dark {
+    border-color: #343a40;
+    color: #343a40;
+}
+
+.btn-outline-dark:hover {
+    background-color: #343a40;
+    color: #fff;
+}
+
+/* REMOVE BADGE COLORS */
+.badge {
+    background: #f1f1f1 !important;
+    color: #000 !important;
+}
+</style>
+
 {% endblock %}

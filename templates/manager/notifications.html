@@ -1,0 +1,98 @@
+{% extends "manager/manager.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.page-title{
+    font-weight:600;
+    color:#2c3e50;
+    margin:0;
+}
+
+.add-btn{
+    border-radius:25px;
+    padding:6px 18px;
+}
+
+/* Notification Card */
+.notification-card{
+    border:none;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    padding:20px;
+    margin-bottom:20px;
+    transition:0.3s ease;
+    background:white;
+}
+
+.notification-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.notification-message{
+    font-size:16px;
+    font-weight:500;
+    color:#212529;
+}
+
+.notification-date{
+    font-size:14px;
+    color:#6c757d;
+    margin-top:8px;
+}
+
+.empty-box{
+    padding:40px;
+    text-align:center;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    color:#6c757d;
+}
+</style>
+
+<div class="container mt-4">
+
+    <!-- Header with Button -->
+    <div class="page-header">
+        <h3 class="page-title">🔔 Notifications</h3>
+
+        <!-- Add Notification Button -->
+        <a href="{% url 'send_notification' %}"
+           class="btn btn-primary add-btn">
+            <i class="mdi mdi-plus"></i> Add Notification
+        </a>
+    </div>
+
+    {% for i in data %}
+
+        <div class="notification-card">
+            <div class="notification-message">
+                {{ i.message }}
+            </div>
+
+            <div class="notification-date">
+                📅 {{ i.date_time|date:"d M Y • h:i A" }}
+            </div>
+        </div>
+
+    {% empty %}
+
+        <div class="empty-box">
+            No Notifications Available
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

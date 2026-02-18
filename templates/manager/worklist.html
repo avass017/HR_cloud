@@ -1,58 +1,149 @@
 {% extends "manager/manager.html" %}
+{% load crispy_forms_tags %}
 
-{%load crispy_forms_tags %}
 {% block content %}
-<table class="table table-bordered table-striped">
-    <h2>project-running</h2>
-    <thead class="dark">
-        <tr>
-            <th>Slno</th>
-            <th>work_name</th>
-            <th> work_duration</th>
-            <th> employee_name</th>
-            <th>department</th>
-            <th>Starting date</th>
 
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow-lg border-0">
+      <div class="card-body">
 
+        <!-- Header Section -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h3 class="font-weight-bold mb-1">
+              <i class="mdi mdi-briefcase-check text-primary"></i>
+              Running Projects
+            </h3>
+            <p class="text-muted mb-0">
+              Monitor ongoing projects and assigned employees.
+            </p>
+          </div>
+        </div>
 
-        </tr>
-    </thead>
+        <!-- Project Table -->
+        <div class="table-responsive">
+          <table class="table table-hover align-middle professional-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Work Name</th>
+                <th>Duration</th>
+                <th>Employee</th>
+                <th>Department</th>
+                <th>Starting Date</th>
+                <th>Status</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
 
-    <tbody>
-    {% for i in data %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
+            <tbody>
+              {% for i in data %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
 
+                <td class="font-weight-semibold">
+                  {{ i.work_name }}
+                </td>
 
-            <td>{{ i.work_name }}</td>
-            <td>{{ i.work_duration }}</td>
-            <td>{{ i.employee_name }}</td>
-             <td>{{ i.department }}</td>
-            <td>{{ i.date }}</td>
+                <td>
+                  <span class="badge badge-light px-3 py-2">
+                    {{ i.work_duration }}
+                  </span>
+                </td>
 
+                <td>{{ i.employee_name }}</td>
 
+                <td>
+                  <span class="badge badge-info px-3 py-2">
+                    {{ i.department }}
+                  </span>
+                </td>
 
+                <td>{{ i.date }}</td>
 
-           <td>
-              {% if i.status %}
-                <button class="btn btn-success">
-                  Start
-                </button>
-              {% else %}
-                <a href="" class="btn btn-outline-danger">
-                  pending...
-                </a>
-              {% endif %}
-            </td>
-            <td><a href="{% url 'Project_delete' i.id %}" class="btn btn-outline-danger">DELETE</a>
+                <!-- Status -->
+                <td>
+                  {% if i.status %}
+                    <span class="badge badge-success px-3 py-2">
+                      <i class="mdi mdi-check-circle"></i> Active
+                    </span>
+                  {% else %}
+                    <span class="badge badge-warning px-3 py-2">
+                      <i class="mdi mdi-clock-outline"></i> Pending
+                    </span>
+                  {% endif %}
+                </td>
 
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="7" class="text-center">No trip found</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+                <!-- Delete Button -->
+                <td class="text-center">
+                  <a href="{% url 'Project_delete' i.id %}"
+                     class="btn btn-sm btn-outline-danger">
+                    <i class="mdi mdi-delete"></i> Delete
+                  </a>
+                </td>
+
+              </tr>
+
+              {% empty %}
+              <tr>
+                <td colspan="8" class="text-center py-5 text-muted">
+                  <i class="mdi mdi-briefcase-remove mdi-36px d-block mb-3"></i>
+                  No running projects found.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+
+/* Professional Styling */
+.professional-table thead {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.professional-table tbody tr:hover {
+    background-color: #f4f8ff;
+    transition: 0.3s ease;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.badge-light {
+    background-color: #eef2f7;
+    font-weight: 500;
+}
+
+.badge-info {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+</style>
 
 {% endblock %}

@@ -1,58 +1,180 @@
 {% extends "hr/dashhr.html" %}
+{% load crispy_forms_tags %}
 
-{%load crispy_forms_tags %}
 {% block content %}
-<table class="table table-bordered table-striped">
-    <h2>project-running</h2>
-    <thead class="dark">
-        <tr>
-            <th>Slno</th>
-            <th>work_name</th>
-            <th> work_duration</th>
-            <th> employee_name</th>
-            <th>department</th>
-            <th>Starting date</th>
 
+<style>
 
+/* ===== FORCE WHITE BACKGROUND ===== */
+body,
+.content-wrapper,
+.main-panel {
+    background: #ffffff !important;
+}
 
-        </tr>
-    </thead>
+/* ===== PAGE HEADER ===== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
 
-    <tbody>
-    {% for i in data %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
+.page-title {
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+}
 
+/* ===== ADD PROJECT BUTTON ===== */
+.btn-add-project {
+    background-color: #0d6efd;
+    color: #ffffff;
+    border-radius: 25px;
+    padding: 6px 18px;
+    font-size: 14px;
+    border: none;
+}
 
-            <td>{{ i.work_name }}</td>
-            <td>{{ i.work_duration }}</td>
-            <td>{{ i.employee_name }}</td>
-             <td>{{ i.department }}</td>
-                         <td>{{ i.date }}</td>
+.btn-add-project:hover {
+    background-color: #0b5ed7;
+    color: #ffffff;
+}
 
+/* ===== CARD STYLE ===== */
+.project-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    padding: 20px;
+}
 
+/* ===== TABLE STYLE ===== */
+.table thead th {
+    background: #f8f9fa;
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom: 2px solid #dee2e6;
+}
 
+.table td {
+    vertical-align: middle;
+    font-size: 14px;
+    color: #333;
+}
 
-           <td>
-              {% if i.status %}
-                <button class="btn btn-success">
-                  Start
-                </button>
-              {% else %}
-                <a href="" class="btn btn-outline-danger">
-                  pending...
-                </a>
-              {% endif %}
-            </td>
-            <td><a href="{% url 'Project_delete' i.id %}" class="btn btn-outline-danger">DELETE</a>
+.table tbody tr:hover {
+    background-color: #f5f7fa;
+    transition: 0.2s ease;
+}
 
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="7" class="text-center">No trip found</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+/* ===== STATUS BADGES ===== */
+.badge-running {
+    background-color: #198754;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.badge-pending {
+    background-color: #ffc107;
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+/* ===== DELETE BUTTON ===== */
+.btn-delete {
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+}
+
+.btn-delete:hover {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+/* ===== EMPTY ROW ===== */
+.empty-row {
+    text-align: center;
+    padding: 30px;
+    color: #6c757d;
+}
+
+</style>
+
+<div class="container mt-4">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h4 class="page-title">Project Running</h4>
+
+        <!-- NEW PROJECT BUTTON -->
+        <a href="{% url 'Work_add' %}" class="btn btn-add-project">
+            + New Project
+        </a>
+    </div>
+
+    <div class="project-card">
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Work Name</th>
+                        <th>Duration</th>
+                        <th>Employee</th>
+                        <th>Department</th>
+                        <th>Starting Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for i in data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.work_name }}</td>
+                        <td>{{ i.work_duration }}</td>
+                        <td>{{ i.employee_name }}</td>
+                        <td>{{ i.department }}</td>
+                        <td>{{ i.date }}</td>
+
+                        <td>
+                            {% if i.status %}
+                                <span class="badge-running">Running</span>
+                            {% else %}
+                                <span class="badge-pending">Pending</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <a href="{% url 'Project_delete' i.id %}"
+                               class="btn btn-delete">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="8" class="empty-row">
+                            No projects found
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

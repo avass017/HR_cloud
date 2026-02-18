@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from Hr_cloud_app.forms import EmployeeRegister, ComplaintRegister
-from Hr_cloud_app.models import Employee, Work, Payroll, Complaint, Reply
+from Hr_cloud_app.forms import EmployeeRegister, ComplaintRegister, OvertimeRegister
+from Hr_cloud_app.models import Employee, Work, Payroll, Complaint, Reply, Overtime
 
 from django.shortcuts import render
 from .models import Employee
@@ -68,3 +68,22 @@ def reply_view(request):
     data = Reply.objects.filter(complaint_details=employee)
     return render(request,'employee/complaint_reply.html',{'data':data})
 
+
+def overtime(request):
+
+    if request.method == "POST":
+       form = OvertimeRegister(request.POST)
+
+       if form.is_valid():
+        form.save()
+        return redirect('over_view')
+
+    else:
+        form = OvertimeRegister()
+
+    return render(request, 'employee/overtime.html', {'form': form})
+
+def over_view(request):
+    employee = Employee.objects.get(employee_details=request.user)
+    data = Overtime.objects.filter(employee=employee)
+    return render(request,'employee/overview.html',{'data':data})

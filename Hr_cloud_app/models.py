@@ -114,8 +114,59 @@ class Notification(models.Model):
     message= models.TextField()
     date_time = models.DateTimeField(auto_now_add=True)
 
+class Overtime(models.Model):
+    work_details = models.ForeignKey("Work",on_delete=models.DO_NOTHING)
+    employee = models.ForeignKey("employee",on_delete=models.DO_NOTHING)
+    month = (
+        ("JANUARY", "JANUARY"),
+        ("FEBRUARY", "FEBRUARY"),
+        ("MARCH", "MARCH"),
+        ("APRIL", "APRIL"),
+        (" MAY", "MAY"),
+        ("JUNE", "JUNE"),
+        ("JULY  ", " JULY"),
+        ("AUGUST", "AUGUST"),
+        ("SEPTEMBER", "SEPTEMBER"),
+        ("OCTOBER", "OCTOBER"),
+        ("NOVEMBER  ", "NOVEMBER"),
+        ("DECEMBER  ", "DECEMBER"),
 
+    )
+    months = models.CharField(max_length=100,
+                                  choices=month,
+                                  default="JANUARY")
 
+    day = (
+        ("MONDAY", "MONDAY"),
+        ("TUESDAY", "TUESDAY"),
+        ("WEDNESDAY", "WEDNESDAY"),
+        ("THURSDAY", "THURSDAY"),
+        ("FRIDAY", "FRIDAY"),
+        ("SATURDAY", "SATURDAY"),
+        ("SUNDAY", "SUNDAY"),
+
+    )
+    days = models.CharField(max_length=100,
+                                  choices=day,
+                                  default="MONDAY")
+    department = (
+        ("UI/UX", "Ui/Ux"),
+        ("DATA SCIENCE", "data science"),
+        ("PYTHON DEVELOPING", "python_developing"),
+        ("FLUTTER", "flutter"),
+        ("DATA ANALATICS", "data analytics"),
+        ("REACT", "react"),
+        ("FRONT END DEVELOPING", "front end development"),
+        ("BACK END DEVELOPING", "back end development"),
+        ("DEVOPS", "devops"),
+        ("CLOUD", "cloud"),
+
+    )
+    department = models.CharField(max_length=100,
+                                  choices=department,
+                                  default="UI/UX")
+    date = models.DateField()
+    hour = models.IntegerField()
 
 
 

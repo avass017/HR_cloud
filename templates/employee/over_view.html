@@ -5,9 +5,12 @@
 
 <div class="container py-5">
 
-    <!-- Page Header -->
+    <!-- Page Header with Add Complaint Button -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-primary">Payroll Records</h2>
+        <h2 class="fw-bold text-primary">Employee Complaints</h2>
+        <a href="{% url 'complaint_add' %}" class="btn btn-primary rounded-pill px-4 py-2">
+            + Add Complaint
+        </a>
     </div>
 
     <!-- Table Card -->
@@ -17,31 +20,32 @@
                 <thead class="table-light">
                     <tr>
                         <th>Sl No</th>
-                        <th>Employee</th>
-                        <th>Salary</th>
-                        <th>Debited Date</th>
+                        <th>Name</th>
+                        <th>Subject</th>
                         <th>Department</th>
+                        <th>Date</th>
                         <th>Action</th>
+                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in data %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ i.payroll_details }}</td>
-                            <td>{{ i.salary }}</td>
-                            <td>{{ i.date }}</td>
+                            <td>{{ i.employee }}</td>
+                            <td>{{ i.months }}</td>
+                                                        <td>{{ i.days }}</td>
+
                             <td>{{ i.department }}</td>
-                            <td>
-                                <button class="btn btn-success btn-sm rounded-pill">
-                                    Credit
-                                </button>
-                            </td>
+                            <td>{{ i.date }}</td>
+                                                        <td>{{ i.hour }}</td>
+
+
                         </tr>
                     {% empty %}
                         <tr>
                             <td colspan="6" class="text-center text-muted py-4">
-                                No payroll records found
+                                No complaints found
                             </td>
                         </tr>
                     {% endfor %}
@@ -84,16 +88,15 @@ body {
 }
 
 /* ===== BUTTON STYLING ===== */
-.btn-success {
-    background-color: #198754;
-    border: none;
+.btn-primary {
+    background-color: #0d6efd;
+    color: #fff;
     font-weight: 500;
-    padding: 6px 18px;
     transition: all 0.25s ease;
 }
 
-.btn-success:hover {
-    background-color: #157347;
+.btn-primary:hover {
+    background-color: #0b5ed7;
     transform: translateY(-2px);
 }
 
