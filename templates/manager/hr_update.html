@@ -1,0 +1,21 @@
+
+{% extends "manager/manager.html" %}
+
+{%load crispy_forms_tags %}
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <form method="POST">
+            {% csrf_token %}
+            {{ data|crispy }}
+
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary px-4 rounded-pill">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

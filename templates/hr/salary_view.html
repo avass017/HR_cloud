@@ -1,0 +1,51 @@
+{% extends "hr/dashhr.html" %}
+
+{%load crispy_forms_tags %}
+{% block content %}
+<table class="table table-bordered table-striped">
+    <h2>project-running</h2>
+    <thead class="dark">
+        <tr>
+            <th>Slno</th>
+            <th>Name</th>
+            <th> Salary</th>
+            <th> Debited_date</th>
+            <th>department</th>
+
+
+
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for i in data %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+
+            <td>{{i.employee_details_id}}</td>
+            <td>{{ i.salary }}</td>
+            <td>{{ i.date }}</td>
+
+             <td>{{ i.department }}</td>
+
+
+
+
+
+           <td>
+
+                <button class="btn btn-success">
+Debit              </button>
+
+            </td>
+
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="7" class="text-center">No  found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

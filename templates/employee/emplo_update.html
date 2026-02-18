@@ -1,0 +1,30 @@
+{% extends "employee/dashemp.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+
+
+</style>
+
+<div class="form-container">
+    <div class="form-card">
+
+        <h2>Update Employee</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-4 rounded-pill">
+                    Submit
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,8 +1,9 @@
 from django.contrib import admin
 
 from Hr_cloud_app import models
-from Hr_cloud_app.views import hr
+from Hr_cloud_app.models import Employee, Work, Hr
 
-# Register your models here.
 admin.site.register(models.Login)
-admin.site.register(hr)
+admin.site.register(Hr)
+admin.site.register(Employee)
+admin.site.register(Work)

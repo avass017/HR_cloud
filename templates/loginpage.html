@@ -2,52 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>HR Management Login</title>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(rgba(10,25,50,0.75), rgba(10,25,50,0.75)),
+                        url("https://www.hrmanagementapp.com/wp-content/uploads/2022/12/company-wide-meetings.png");
+            background-size: cover;
+            background-position: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-    body {
-  margin: 0;
-  padding: 0;
-   background-image: url("https://www.totaljobs.com/advice/wp-content/uploads/Human-Resources-HR-Manager-job-description_809622.jpg");
-    background-repeat: no-repeat;
-     background-size: cover;
+        .login-wrapper {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            color: white;
+        }
 
-}
+        .login-title {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
 
-#login .container #login-row #login-column #login-box {
-  margin-top:00px;
-  margin-left: 420px;
-  max-width: 400px;
-  height: 300px;
+        .form-control {
+            border-radius: 10px;
+            padding: 12px;
+        }
 
+        .form-control:focus {
+            box-shadow: 0 0 8px rgba(255,255,255,0.4);
+            border-color: #ffffff;
+        }
 
+        .btn-login {
+            background-color: white;
+            color: #0a1f44;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 10px;
+            transition: 0.3s;
+        }
 
-}
+        .btn-login:hover {
+            background-color: #0a1f44;
+            color: white;
+            border: 1px solid white;
+        }
 
-#login .container #login-row #login-column #login-box #login-form {
-  padding: 0px;
+        .link-area a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
 
-}
-#login .container #login-row #login-column #login-box #login-form #register-link {
-  margin-top:-85px;
-}
-</style>
+        .link-area a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
-
-<!------ Include the above in your HEAD tag ---------->
 <body>
 
-<div class="d-flex justify-content-center align-items-center" style="height:100vh;">
+<div class="login-wrapper">
 
-    <div class="card p-4" style="width:400px; border-radius:15px;">
-
+    <div class="login-card">
 
         {% for message in messages %}
         {% if message %}
@@ -60,38 +101,49 @@
         <form method="post">
             {% csrf_token %}
 
-            <h4 class="text-center mb-4">Login</h4>
+            <div class="login-title">HR Management System</div>
 
-            <div class="form-group">
-                <label style="color:black;">Username</label>
+            <div class="mb-3">
+                <label class="form-label text-white">Username</label>
                 <input type="text" name="username" class="form-control" required>
             </div>
 
-            <div class="form-group">
-                <label style="color:black;">Password</label>
+            <div class="mb-3">
+                <label class="form-label text-white">Password</label>
                 <input type="password" name="password" class="form-control" required>
             </div>
 
-            <button type="submit" class="btn btn-outline-primary btn-block">
+            <button type="submit" class="btn btn-login w-100 mt-3">
                 Login
             </button>
 
-            <hr>
-   <div class="text-center">
-                <a href=""> HR </a>
-                <span>|</span>
-                <a href=""> EMPLOYEE</a>
-            </div>
+            <hr class="bg-white">
 
-        </form>
+         <div class="mt-4">
+
+    <div class="text-center mb-3">
+        <small class="text-light">Create New Account</small>
+    </div>
+
+    <div class="d-grid gap-2">
+
+        <a href="{% url 'hr_add' %}" class="btn btn-outline-light rounded-pill">
+             Register as HR
+        </a>
+
+        <a href="{% url 'emp_add' %}" class="btn btn-outline-light rounded-pill">
+             Register as Employee
+        </a>
 
     </div>
 
+</div>
+
+
+        </form>
+    </div>
 
 </div>
 
 </body>
-
-
-
 </html>

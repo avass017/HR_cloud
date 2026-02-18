@@ -2,22 +2,49 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from Hr_cloud_app.views import Login, hr
+from Hr_cloud_app.models import Login, Hr, Employee, Work, Payroll
 
 
 class LoginRegister(UserCreationForm):
     username = forms.CharField()
-    password1 = forms.CharField(label="password", widget=forms.PasswordInput)
-    password2 = forms.CharField(label="confirm password", widget=forms.PasswordInput)
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
         model = Login
-        fields = ['username', 'password1', 'password2']
+
+        fields = ('username', 'password1', 'password2')
 
 
 class HrRegister(forms.ModelForm):
     class Meta:
-        model = hr
-        fields = ['Name', 'email','phone_number','department','document']
+        model = Hr
+        fields = ('name','email','phone','address')
+
+class EmployeeRegister(forms.ModelForm):
+
+    class Meta:
+        model = Employee
+        fields = ('name','email','phone','department','address')
+
+class WorkRegister(forms.ModelForm):
+    class Meta:
+        model = Work
+        fields = '__all__'
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+
+        }
+
+class PayrollRegister(forms.ModelForm):
+    class Meta:
+        model = Payroll
+        fields = '__all__'
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+
+        }
+
+
 
 
