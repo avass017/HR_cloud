@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from Hr_cloud_app.models import Login, Hr, Employee, Work, Payroll
+from Hr_cloud_app.models import Login, Hr, Employee, Work, Payroll, Complaint, Reply, Notification
 
 
 class LoginRegister(UserCreationForm):
@@ -46,5 +46,32 @@ class PayrollRegister(forms.ModelForm):
         }
 
 
+class ComplaintRegister(forms.ModelForm):
+    class Meta:
+        model = Complaint
+        fields = '__all__'
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
 
+        }
 
+class ReplyRegister(forms.ModelForm):
+    class Meta:
+        model = Reply
+        fields = '__all__'
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+
+        }
+class NotificationRegister(forms.ModelForm):
+    class Meta:
+        model = Notification
+        fields = ['message']
+
+        widgets = {
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Enter notification message here...'
+            }),
+        }

@@ -138,13 +138,22 @@ body.dark-theme {
             </a>
           </li>
              <li class="nav-item menu-items">
-            <a class="nav-link" href="   ">
+            <a class="nav-link" href="{% url 'complaint_add' %}   ">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
-              <span class="menu-title">Complaints</span>
+              <span class="menu-title">ComplaintsRegister</span>
             </a>
-          </li> <li class="nav-item menu-items">
+          </li>
+            <li class="nav-item menu-items">
+            <a class="nav-link" href="{% url 'complaint_view' %}   ">
+              <span class="menu-icon">
+                <i class="mdi mdi-playlist-play"></i>
+              </span>
+              <span class="menu-title">ViewComplaints</span>
+            </a>
+          </li>
+            <li class="nav-item menu-items">
             <a class="nav-link" href=" ">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
@@ -153,6 +162,14 @@ body.dark-theme {
             </a>
           </li>
 
+          </li>
+            <li class="nav-item menu-items">
+            <a class="nav-link" href="  {% url 'salary_credit' %}">
+              <span class="menu-icon">
+                <i class="mdi mdi-playlist-play"></i>
+              </span>
+              <span class="menu-title">salary</span>
+            </a>
           </li>
 <!--            <div class="collapse" id="ui-basic">-->
 <!--              <ul class="nav flex-column sub-menu">-->

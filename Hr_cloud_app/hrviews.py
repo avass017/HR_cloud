@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from Hr_cloud_app.forms import EmployeeRegister, WorkRegister, PayrollRegister
-from Hr_cloud_app.models import Employee, Hr, Work, Payroll
+from Hr_cloud_app.forms import EmployeeRegister, WorkRegister, PayrollRegister, ReplyRegister
+from Hr_cloud_app.models import Employee, Hr, Work, Payroll, Complaint, Reply
 
 
 def employee_view(request):
@@ -56,7 +56,7 @@ def salary_add(request):
 
         if form.is_valid():
             form.save()
-            return redirect('project_list')
+            return redirect('salary_view')
 
     else:
         form = PayrollRegister()
@@ -66,5 +66,26 @@ def salary_add(request):
 def salary_view(request):
     data=Payroll.objects.all()
     return render(request,'hr/salary_view.html',{'data':data})
+def complaint_hr(request):
+    data=Complaint.objects.all()
+    return render(request,'hr/complaint.html',{'data':data})
+
+def reply_add(request):
+
+    if request.method == "POST":
+        form = ReplyRegister(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('reply_view')
+
+    else:
+        form = ReplyRegister()
+
+    return render(request, 'hr/reply.html', {'form': form})
+
+def reply_view(request):
+    data=Reply.objects.all()
+    return render(request,'hr/send_reply.html',{'data':data})
 
 

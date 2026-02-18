@@ -58,7 +58,7 @@ class Work(models.Model):
 
 
 class Payroll(models.Model):
-    employee_details_id= models.ForeignKey(Employee, on_delete=models.CASCADE)
+    payroll_details= models.ForeignKey("Employee", on_delete=models.CASCADE)
     salary = models.IntegerField()
     date = models.DateField()
 
@@ -79,6 +79,42 @@ class Payroll(models.Model):
     department = models.CharField(max_length=100,
                                   choices=department,
                                   default="UI/UX")
+
+class Complaint(models.Model):
+    complaint_details = models.ForeignKey("Employee", on_delete=models.CASCADE)
+    subject = models.CharField(max_length=200)
+    date = models.DateField()
+
+
+
+    department = (
+        ("UI/UX", "Ui/Ux"),
+        ("DATA SCIENCE", "data science"),
+        ("PYTHON DEVELOPING", "python_developing"),
+        ("FLUTTER", "flutter"),
+        ("DATA ANALATICS", "data analytics"),
+        ("REACT", "react"),
+        ("FRONT END DEVELOPING", "front end development"),
+        ("BACK END DEVELOPING", "back end development"),
+        ("DEVOPS", "devops"),
+        ("CLOUD", "cloud"),
+
+    )
+    department = models.CharField(max_length=100,
+                                  choices=department,
+                                  default="UI/UX")
+    status = models.BooleanField(default=False)
+
+class Reply(models.Model):
+
+  subject = models.CharField(max_length=200)
+  date = models.DateField()
+
+class Notification(models.Model):
+    message= models.TextField()
+    date_time = models.DateTimeField(auto_now_add=True)
+
+
 
 
 

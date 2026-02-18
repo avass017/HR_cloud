@@ -37,6 +37,12 @@ urlpatterns = [
  path('salary_add',hrviews.salary_add,name='salary_add'),
  path('salary_view',hrviews.salary_view,name='salary_view'),
  path('payview',managerviews.payview,name='payview'),
- path('project_view',managerviews.project_view,name='project_view')
-
+ path('project_view',managerviews.project_view,name='project_view'),
+ path('salary_credit',empviews.salary_credit,name='salary_credit'),
+ path('complaint_add',empviews.complaint_add,name='complaint_add'),
+ path('complaint_view',empviews.complaint_view,name='complaint_view'),
+ path('complaint_hr',hrviews.complaint_hr,name='complaint_hr'),
+ path('reply_add',hrviews.reply_add,name='reply_add'),
+ path('reply_view',hrviews.reply_view,name='reply_view'),
+ path('reply_view',empviews.reply_view,name='reply_view'),
 ]

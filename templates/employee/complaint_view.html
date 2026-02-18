@@ -1,4 +1,4 @@
-{% extends "hr/dashhr.html" %}
+{% extends "employee/dashemp.html" %}
 
 {%load crispy_forms_tags %}
 {% block content %}
@@ -8,9 +8,9 @@
         <tr>
             <th>Slno</th>
             <th>Name</th>
-            <th> Salary</th>
-            <th> Debited_date</th>
-            <th>department</th>
+            <th> subject</th>
+            <th> department</th>
+            <th>date</th>
 
 
 
@@ -22,23 +22,21 @@
         <tr>
             <td>{{ forloop.counter }}</td>
 
-            <td>{{i.payroll_details}}</td>
-            <td>{{ i.salary }}</td>
-            <td>{{ i.date }}</td>
+            <td>{{i.complaint_details}}</td>
+            <td>{{ i.subject }}</td>
+            <td>{{ i.department }}</td>
 
-             <td>{{ i.department }}</td>
-
-
+             <td>{{ i.date }}</td>
 
 
 
-           <td>
 
-                <button class="btn btn-success">
-Debit              </button>
-
-            </td>
-
+<td>
+            <a class="dropdown-item"
+                   href="{% url 'reply_view' %}">
+                    Reply
+                </a>
+</td>
         </tr>
     {% empty %}
         <tr>

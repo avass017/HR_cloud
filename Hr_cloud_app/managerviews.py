@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from Hr_cloud_app.forms import HrRegister, EmployeeRegister
+from Hr_cloud_app.forms import HrRegister, EmployeeRegister, NotificationRegister
 from Hr_cloud_app.models import Hr, Employee, Payroll, Work
 
 
@@ -56,3 +56,13 @@ def project_view(request):
     data=Work.objects.all()
     return render(request,'manager/worklist.html',{'data':data})
 
+def send_notification(request):
+    form = NotificationRegister()
+
+    if request.method == "POST":
+        form = NotificationRegister(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('project_view')   # change to your url name
+
+    return render(request, 'send_notification.html', {'form': form})

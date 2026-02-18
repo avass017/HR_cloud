@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 
-from Hr_cloud_app.forms import EmployeeRegister
-from Hr_cloud_app.models import Employee, Work
-
+from Hr_cloud_app.forms import EmployeeRegister, ComplaintRegister
+from Hr_cloud_app.models import Employee, Work, Payroll, Complaint, Reply
 
 from django.shortcuts import render
 from .models import Employee
@@ -39,4 +38,33 @@ def Start_project(request, id):
     return redirect('work_list')
 
 
+def salary_credit(request):
+    employee=Employee.objects.get(employee_details=request.user)
+    data = Payroll.objects.filter(payroll_details=employee)
+
+    return render(request,'employee/salary.html',{'data':data})
+
+def complaint_add(request):
+
+    if request.method == "POST":
+        form = ComplaintRegister(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('complaint_view')
+
+    else:
+        form = ComplaintRegister()
+
+    return render(request, 'employee/complaint.html', {'form': form})
+
+def complaint_view(request):
+    employee = Employee.objects.get(employee_details=request.user)
+    data = Complaint.objects.filter(complaint_details=employee)
+    return render(request,'employee/complaint_view.html',{'data':data})
+
+def reply_view(request):
+    employee = Employee.objects.get(employee_details=request.user)
+    data = Reply.objects.filter(complaint_details=employee)
+    return render(request,'employee/complaint_reply.html',{'data':data})
 

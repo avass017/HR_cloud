@@ -1,0 +1,42 @@
+{% extends "hr/dashhr.html" %}
+
+{%load crispy_forms_tags %}
+{% block content %}
+<table class="table table-bordered table-striped">
+    <h2>Your complaint </h2>
+    <thead class="dark">
+        <tr>
+
+            <th>reply</th>
+
+            <th> date</th>
+
+
+
+
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for i in data %}
+        <tr>
+
+
+
+
+            <td>{{ i.subject }}</td>
+            <td>{{ i.date }}</td>
+
+
+
+
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="7" class="text-center">No trip found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
