@@ -3,28 +3,104 @@
 
 {% block content %}
 
-<style>
+<div class="container py-5">
 
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-0">Edit Profile</h3>
+            <small class="text-muted">Update your personal information</small>
+        </div>
+        <a href="{% url 'emp_profile' %}" class="btn btn-outline-secondary rounded-pill px-4">
+            Back
+        </a>
+    </div>
 
-</style>
+    <!-- Professional Card -->
+    <div class="card edit-card shadow-sm border-0">
 
-<div class="form-container">
-    <div class="form-card">
+        <div class="card-body p-5">
 
-        <h2>Update Employee</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
 
-        <form method="POST">
-            {% csrf_token %}
-            {{ form|crispy }}
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ data|crispy }}
+                    </div>
+                </div>
 
-            <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary px-4 rounded-pill">
-                    Submit
-                </button>
-            </div>
-        </form>
+                <!-- Buttons -->
+                <div class="d-flex justify-content-end gap-3 mt-4">
+                    <a href="{% url 'emp_profile' %}" class="btn btn-light rounded-pill px-4">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">
+                        Save Changes
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
+
 </div>
+
+<style>
+
+/* ===== PAGE BACKGROUND ===== */
+body {
+    background-color: #f4f6f9 !important;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== CARD STYLE ===== */
+.edit-card {
+    border-radius: 14px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.edit-card:hover {
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+/* ===== FORM INPUTS ===== */
+input, select, textarea {
+    border-radius: 8px !important;
+    border: 1px solid #ced4da !important;
+    padding: 10px !important;
+    background-color: #ffffff !important;
+    color: #212529 !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.15rem rgba(13,110,253,.25) !important;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-light {
+    background-color: #f1f3f5;
+    border: none;
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea;
+}
+
+</style>
 
 {% endblock %}

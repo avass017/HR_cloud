@@ -1,0 +1,254 @@
+{% extends "hr/dashhr.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+/* ===== GLOBAL PAGE STYLING ===== */
+body, .container {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to right, #eef2f7, #f8fafc);
+    color: #0f172a;
+}
+
+.container {
+    padding: 120px 40px 40px 40px; /* space for fixed navbar */
+    min-height: calc(100vh - 120px);
+    animation: fadeInPage 0.5s ease forwards;
+}
+
+/* ===== MAIN CARD ===== */
+.hr-card {
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+    padding: 30px;
+    transition: all 0.3s ease;
+}
+.hr-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+}
+
+/* ===== HEADER ===== */
+.page-title {
+    font-weight: 700;
+    font-size: 26px;
+    color: #3b82f6;
+}
+.sub-text {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* ===== TABLE STYLING ===== */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+.table thead th {
+    background: #f1f5f9;
+    font-weight: 600;
+    font-size: 13px;
+    color: #475569;
+    text-align: center;
+    padding: 14px 12px;
+    letter-spacing: 0.5px;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    font-size: 14px;
+    text-align: center;
+    padding: 12px 12px;
+    transition: all 0.25s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #eef4ff;
+    transform: translateX(3px);
+}
+
+/* ===== LEAVE TYPE BADGES ===== */
+.leave-type {
+    display: inline-block;
+    background-color: #e0f2fe;
+    color: #075985;
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+}
+.leave-type:hover {
+    transform: scale(1.05);
+}
+
+/* ===== STATUS BADGES ===== */
+.status-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.badge-pending {
+    background: linear-gradient(90deg,#fde68a,#facc15);
+    color: #78350f;
+}
+
+.badge-approved {
+    background: linear-gradient(90deg,#bbf7d0,#22c55e);
+    color: #14532d;
+}
+
+.badge-rejected {
+    background: linear-gradient(90deg,#fecaca,#ef4444);
+    color: #7f1d1d;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.btn-accept, .btn-reject, .btn-disabled {
+    border-radius: 25px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.btn-accept {
+    background: linear-gradient(90deg,#16a34a,#15803d);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.3);
+}
+
+.btn-accept:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(22,163,74,0.4);
+}
+
+.btn-reject {
+    background: linear-gradient(90deg,#dc2626,#b91c1c);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(220,38,38,0.3);
+}
+
+.btn-reject:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(220,38,38,0.4);
+}
+
+.btn-disabled {
+    background-color: #e2e8f0;
+    color: #64748b;
+    border: none;
+    cursor: not-allowed;
+}
+
+/* ===== EMPTY ROW ===== */
+.empty-row {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* ===== PAGE ANIMATION ===== */
+@keyframes fadeInPage {
+    from { opacity:0; transform: translateY(20px); }
+    to { opacity:1; transform: translateY(0); }
+}
+
+/* ===== RESPONSIVE ===== */
+.table-responsive {
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 100px 20px 20px 20px;
+    }
+    .page-title {
+        font-size: 22px;
+    }
+}
+</style>
+
+<div class="container">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="page-title mb-1">Leave Management</h3>
+            <p class="sub-text mb-0">Review and manage employee leave requests</p>
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="hr-card">
+        <div class="table-responsive">
+            <table class="table align-middle text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Employee</th>
+                        <th>Duration</th>
+                        <th>Reason</th>
+                        <th>start</th>
+                        <th>end</th>
+                        <th>Leave Type</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in leaves %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><strong>{{ i.employee }}</strong></td>
+                        <td>{{ i.duration }} day(s)</td>
+                        <td>{{ i.start_date }}</td>
+                        <td>{{ i.end_date }}</td>
+                        <td>{{ i.reason }}</td>
+                        <td><span class="leave-type">{{ i.get_leave_type_display }}</span></td>
+                        <td>
+                            {% if i.status == "PENDING" %}
+                                <span class="status-badge badge-pending">Pending</span>
+                            {% elif i.status == "APPROVED" %}
+                                <span class="status-badge badge-approved">Approved</span>
+                            {% elif i.status == "REJECTED" %}
+                                <span class="status-badge badge-rejected">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if i.status == "PENDING" %}
+                                <a href="{% url 'accept_leave' i.id %}" class="btn btn-accept me-2">✓ Approve</a>
+                                <a href="{% url 'reject_leave' i.id %}" class="btn btn-reject">✕ Reject</a>
+                            {% else %}
+                                <button class="btn btn-disabled" disabled>Action Completed</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="empty-row">No leave requests found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

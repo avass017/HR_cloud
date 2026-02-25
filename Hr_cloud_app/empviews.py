@@ -1,7 +1,9 @@
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
+from django.utils import timezone
 
-from Hr_cloud_app.forms import EmployeeRegister, ComplaintRegister, OvertimeRegister
-from Hr_cloud_app.models import Employee, Work, Payroll, Complaint, Reply, Overtime
+from Hr_cloud_app.forms import EmployeeRegister, ComplaintRegister, OvertimeRegister, LeaveRegister
+from Hr_cloud_app.models import Employee, Work, Payroll, Complaint, Reply, Overtime, Leave
 
 from django.shortcuts import render
 from .models import Employee
@@ -10,7 +12,7 @@ def emp_profile(request):
 
     employee = Employee.objects.first()   # just get first employee
 
-    return render(request, 'employee/emp_profile.html', {'employee': employee})
+    return render(request, 'employee/emp_profile.html', {'data': employee})
 
 
 
@@ -33,7 +35,7 @@ def work_list(request):
 
 def Start_project(request, id):
     project = Work.objects.get(id=id)
-    project.status = 'started'
+    project.status = True
     project.save()
     return redirect('work_list')
 
@@ -44,15 +46,19 @@ def salary_credit(request):
 
     return render(request,'employee/salary.html',{'data':data})
 
-def complaint_add(request):
 
+
+
+
+def complaint_add(request):
     if request.method == "POST":
         form = ComplaintRegister(request.POST)
-
         if form.is_valid():
-            form.save()
+            complaint = form.save(commit=False)
+            complaint.complaint_details = request.user.employee  # assign employee
+            complaint.date = timezone.localdate()  # assign today's date
+            complaint.save()
             return redirect('complaint_view')
-
     else:
         form = ComplaintRegister()
 
@@ -72,18 +78,54 @@ def reply_view(request):
 def overtime(request):
 
     if request.method == "POST":
-       form = OvertimeRegister(request.POST)
+        form = OvertimeRegister(request.POST)
 
-       if form.is_valid():
-        form.save()
-        return redirect('over_view')
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.employee = Employee.objects.get(employee_details=request.user)
+            obj.save()
+            return redirect('over_view')
 
     else:
         form = OvertimeRegister()
 
     return render(request, 'employee/overtime.html', {'form': form})
 
+
+
+
+
 def over_view(request):
     employee = Employee.objects.get(employee_details=request.user)
     data = Overtime.objects.filter(employee=employee)
-    return render(request,'employee/overview.html',{'data':data})
+    return render(request,'employee/over_view.html',{'data':data})
+
+
+def leave_add(request):
+
+    employee = Employee.objects.get(employee_details=request.user)
+
+    if request.method == "POST":
+        form = LeaveRegister(request.POST)
+
+        if form.is_valid():
+            leave = form.save(commit=False)
+            leave.employee = employee   # 👈 attach employee
+            leave.save()
+            return redirect('leave_view')
+
+    else:
+        form = LeaveRegister()
+
+    return render(request, 'employee/leave_add.html', {'form': form})
+
+
+
+def leave_view(request):
+    employee = Employee.objects.get(employee_details=request.user)
+    data = Leave.objects.filter(employee=employee)
+    return render(request,'employee/leave_list.html',{'data':data})
+
+def Log_out(request):
+    logout(request)
+    return redirect('login_view')

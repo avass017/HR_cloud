@@ -3,147 +3,252 @@
 
 {% block content %}
 
-<div class="row">
-  <div class="col-12">
-    <div class="card shadow-lg border-0">
-      <div class="card-body">
-
-        <!-- Header Section -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <div>
-            <h3 class="font-weight-bold mb-1">
-              <i class="mdi mdi-briefcase-check text-primary"></i>
-              Running Projects
-            </h3>
-            <p class="text-muted mb-0">
-              Monitor ongoing projects and assigned employees.
-            </p>
-          </div>
-        </div>
-
-        <!-- Project Table -->
-        <div class="table-responsive">
-          <table class="table table-hover align-middle professional-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Work Name</th>
-                <th>Duration</th>
-                <th>Employee</th>
-                <th>Department</th>
-                <th>Starting Date</th>
-                <th>Status</th>
-                <th class="text-center">Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {% for i in data %}
-              <tr>
-                <td>{{ forloop.counter }}</td>
-
-                <td class="font-weight-semibold">
-                  {{ i.work_name }}
-                </td>
-
-                <td>
-                  <span class="badge badge-light px-3 py-2">
-                    {{ i.work_duration }}
-                  </span>
-                </td>
-
-                <td>{{ i.employee_name }}</td>
-
-                <td>
-                  <span class="badge badge-info px-3 py-2">
-                    {{ i.department }}
-                  </span>
-                </td>
-
-                <td>{{ i.date }}</td>
-
-                <!-- Status -->
-                <td>
-                  {% if i.status %}
-                    <span class="badge badge-success px-3 py-2">
-                      <i class="mdi mdi-check-circle"></i> Active
-                    </span>
-                  {% else %}
-                    <span class="badge badge-warning px-3 py-2">
-                      <i class="mdi mdi-clock-outline"></i> Pending
-                    </span>
-                  {% endif %}
-                </td>
-
-                <!-- Delete Button -->
-                <td class="text-center">
-                  <a href="{% url 'Project_delete' i.id %}"
-                     class="btn btn-sm btn-outline-danger">
-                    <i class="mdi mdi-delete"></i> Delete
-                  </a>
-                </td>
-
-              </tr>
-
-              {% empty %}
-              <tr>
-                <td colspan="8" class="text-center py-5 text-muted">
-                  <i class="mdi mdi-briefcase-remove mdi-36px d-block mb-3"></i>
-                  No running projects found.
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-
-          </table>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
 <style>
 
-/* Professional Styling */
-.professional-table thead {
-    background-color: #f8f9fa;
-    font-weight: 600;
+/* ================= PAGE BACKGROUND ================= */
+body,
+.content-wrapper,
+.main-panel {
+    background: #f4f6f9 !important;
+    padding: 40px !important;
+    font-family: 'Inter', sans-serif;
 }
 
-.professional-table tbody tr:hover {
-    background-color: #f4f8ff;
+/* ================= WRAPPER ================= */
+.project-wrapper {
+    width: 100%;
+    animation: fadeSlide 0.6s ease;
+}
+
+/* ================= HEADER ================= */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 26px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.page-subtitle {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* ================= PREMIUM CARD ================= */
+.premium-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px rgba(0,0,0,0.08);
+}
+
+/* Gradient top accent */
+.premium-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(90deg, #3b82f6, #6366f1);
+}
+
+/* ================= TABLE ================= */
+.premium-table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.premium-table thead th {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    border: none;
+}
+
+.premium-table tbody tr {
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    border-radius: 12px;
     transition: 0.3s ease;
 }
 
-.card {
-    border-radius: 15px;
+.premium-table tbody tr:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
-.badge-light {
-    background-color: #eef2f7;
+.premium-table td {
+    padding: 18px 15px;
+    border-top: none !important;
+    vertical-align: middle;
+}
+
+/* ================= BADGES ================= */
+.badge-soft {
+    padding: 6px 14px;
+    border-radius: 20px;
     font-weight: 500;
+    font-size: 12px;
 }
 
-.badge-info {
-    background-color: #17a2b8;
+.badge-duration {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.badge-department {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.badge-active {
+    background: #e6f9f0;
+    color: #16a34a;
+}
+
+.badge-pending {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+/* ================= BUTTON ================= */
+.btn-delete {
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-size: 13px;
+    border: 1px solid #f87171;
+    color: #ef4444;
+    transition: 0.3s;
+}
+
+.btn-delete:hover {
+    background: #ef4444;
     color: #fff;
+    box-shadow: 0 6px 18px rgba(239,68,68,0.3);
 }
 
-.badge-success {
-    background-color: #28a745;
+/* ================= EMPTY STATE ================= */
+.empty-box {
+    padding: 60px;
+    text-align: center;
+    color: #64748b;
 }
 
-.badge-warning {
-    background-color: #ffc107;
-    color: #000;
-}
-
-.btn-outline-danger:hover {
-    background-color: #dc3545;
-    color: #fff;
+/* ================= ANIMATION ================= */
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 </style>
+
+<div class="project-wrapper">
+
+    <!-- ===== HEADER ===== -->
+    <div class="page-header">
+        <div>
+            <div class="page-title">Running Projects</div>
+            <div class="page-subtitle">
+                Monitor ongoing projects and assigned employees in real-time.
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PREMIUM CARD ===== -->
+    <div class="premium-card">
+
+        <div class="table-responsive">
+            <table class="table premium-table">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Work Name</th>
+                        <th>Duration</th>
+                        <th>Employee</th>
+                        <th>Department</th>
+                        <th>Start Date</th>
+                        <th>Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+
+                        <td class="fw-semibold">
+                            {{ i.work_name }}
+                        </td>
+
+                        <td>
+                            <span class="badge-soft badge-duration">
+                                {{ i.work_duration }}
+                            </span>
+                        </td>
+
+                        <td>{{ i.employee_name }}</td>
+
+                        <td>
+                            <span class="badge-soft badge-department">
+                                {{ i.department }}
+                            </span>
+                        </td>
+
+                        <td>{{ i.date }}</td>
+
+                        <td>
+                            {% if i.status %}
+                                <span class="badge-soft badge-active">
+                                    ● Active
+                                </span>
+                            {% else %}
+                                <span class="badge-soft badge-pending">
+                                    ● Pending
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-center">
+                            <a href="{% url 'Project_delete' i.id %}"
+                               class="btn-delete">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="8">
+                            <div class="empty-box">
+                                No running projects available.
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

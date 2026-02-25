@@ -1,7 +1,8 @@
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 
 from Hr_cloud_app.forms import EmployeeRegister, WorkRegister, PayrollRegister, ReplyRegister
-from Hr_cloud_app.models import Employee, Hr, Work, Payroll, Complaint, Reply, Notification, Overtime
+from Hr_cloud_app.models import Employee, Hr, Work, Payroll, Complaint, Reply, Notification, Overtime, Leave
 
 
 def employee_view(request):
@@ -14,7 +15,7 @@ def employee_delete(request,id):
     emp_del.delete()
     return redirect('employee_view')
 
-def emp_update(request,id):
+def empl_update(request,id):
     emp_up=Employee.objects.get(id=id)
 
     if request.method == "POST":
@@ -96,3 +97,24 @@ def noficication_hr(request):
 def over_view_hr(request):
     data = Overtime.objects.all()
     return render(request,'hr/overview_hr.html',{'data':data})
+
+
+def leave_view_hr(request):
+    leaves = Leave.objects.all()
+    return render(request, 'hr/leave_emp.html', {'leaves': leaves})
+
+def accept_leave(request, id):
+    leave=Leave.objects.get(id=id)
+    leave.status = "APPROVED"
+    leave.save()
+    return redirect('leave_view_hr')
+
+def reject_leave(request, id):
+    leave = Leave.objects.get(id=id)
+    leave.status = "REJECTED"
+    leave.save()
+    return redirect('leave_view_hr')
+
+def Log_out_hr(request):
+    logout(request)
+    return redirect('login_view')

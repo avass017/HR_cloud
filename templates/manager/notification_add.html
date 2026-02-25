@@ -78,8 +78,8 @@ body {
 }
 
 /* Inputs */
+/* Inputs */
 input,
-textarea,
 select {
     background: rgba(255,255,255,0.2) !important;
     border: 1px solid rgba(255,255,255,0.3) !important;
@@ -88,13 +88,14 @@ select {
     padding: 10px 14px !important;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: #ffffff !important;
-    box-shadow: 0 0 0 2px rgba(255,255,255,0.3) !important;
+/* TEXTAREA FIX */
+textarea {
+    background: rgba(255,255,255,0.9) !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+    border-radius: 10px !important;
+    color: #000000 !important;   /* 👈 Black text */
+    padding: 10px 14px !important;
 }
-
 /* Placeholder */
 ::placeholder {
     color: #f1f1f1 !important;

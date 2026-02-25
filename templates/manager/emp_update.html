@@ -1,21 +1,176 @@
-
 {% extends "manager/manager.html" %}
+{% load crispy_forms_tags %}
 
-{%load crispy_forms_tags %}
 {% block content %}
-<div class="form-container">
-    <div class="form-card">
+
+<style>
+
+/* ================= MANAGER PREMIUM FORM ================= */
+
+body,
+.content-wrapper,
+.main-panel {
+    background: linear-gradient(135deg, #eef2ff, #f8fafc) !important;
+    padding: 60px !important;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ===== FULL PAGE WRAPPER ===== */
+.manager-form-wrapper {
+    max-width: 1000px;
+    margin: auto;
+    animation: fadeUp 0.6s ease;
+}
+
+/* ===== PAGE HEADER ===== */
+.manager-header {
+    margin-bottom: 30px;
+}
+
+.manager-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 5px;
+}
+
+.manager-subtitle {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* ===== PREMIUM CARD ===== */
+.manager-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.06);
+    transition: 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.manager-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.08);
+}
+
+/* Gradient Top Border */
+.manager-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 6px;
+    width: 100%;
+    background: linear-gradient(90deg, #4f46e5, #3b82f6, #06b6d4);
+}
+
+/* ===== INPUTS ===== */
+input,
+select,
+textarea {
+    border-radius: 10px !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 12px !important;
+    font-size: 14px !important;
+    transition: 0.3s ease !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #4f46e5 !important;
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.15) !important;
+}
+
+/* ===== ACTION AREA ===== */
+.form-actions {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+/* Cancel Button */
+.btn-cancel {
+    border-radius: 30px;
+    padding: 10px 25px;
+    border: 1px solid #cbd5e1;
+    background: white;
+    color: #475569;
+    transition: 0.3s;
+}
+
+.btn-cancel:hover {
+    background: #f1f5f9;
+}
+
+/* Submit Button */
+.btn-submit {
+    border-radius: 30px;
+    padding: 10px 30px;
+    background: linear-gradient(90deg, #4f46e5, #3b82f6);
+    border: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(59,130,246,0.3);
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+
+<div class="manager-form-wrapper">
+
+    <!-- ===== HEADER ===== -->
+    <div class="manager-header">
+        <div class="manager-title">Manager Form</div>
+        <div class="manager-subtitle">
+            Complete the form below to update or submit information.
+        </div>
+    </div>
+
+    <!-- ===== CARD ===== -->
+    <div class="manager-card">
+
         <form method="POST">
             {% csrf_token %}
+
             {{ data|crispy }}
 
-            <div class="text-center mt-3">
-                <button type="submit" class="btn btn-primary px-4 rounded-pill">
+            <div class="form-actions">
+                <a href="javascript:history.back()" class="btn-cancel">
+                    Cancel
+                </a>
+
+                <button type="submit" class="btn-submit">
                     Submit
                 </button>
             </div>
+
         </form>
+
     </div>
+
 </div>
 
 {% endblock %}

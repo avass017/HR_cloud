@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from Hr_cloud_app.models import Login, Hr, Employee, Work, Payroll, Complaint, Reply, Notification, Overtime
+from Hr_cloud_app.models import Login, Hr, Employee, Work, Payroll, Complaint, Reply, Notification, Overtime, Leave
 
 
 class LoginRegister(UserCreationForm):
@@ -25,7 +25,7 @@ class EmployeeRegister(forms.ModelForm):
 
     class Meta:
         model = Employee
-        fields = ('name','email','phone','department','address')
+        fields = ('name','email','phone','department','address','document')
 
 class WorkRegister(forms.ModelForm):
     class Meta:
@@ -49,7 +49,7 @@ class PayrollRegister(forms.ModelForm):
 class ComplaintRegister(forms.ModelForm):
     class Meta:
         model = Complaint
-        fields = '__all__'
+        fields = ['subject']  # omit complaint_details; assign in view
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
 
@@ -79,8 +79,23 @@ class NotificationRegister(forms.ModelForm):
 class OvertimeRegister(forms.ModelForm):
     class Meta:
         model = Overtime
-        fields = '__all__'
+        fields = ['months','days','department','hour']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+
+        }
+
+class LeaveRegister(forms.ModelForm):
+    class Meta:
+        model = Leave
+        fields = ['duration', 'reason', 'leave_type','start_date','end_date']
+        widgets = {
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Enter notification message here...'
+            }),
+            'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
 
         }

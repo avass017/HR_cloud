@@ -25,14 +25,17 @@ class Employee(models.Model):
     department = models.CharField(max_length=100)
     account = models.CharField(max_length=100)
     address = models.TextField()
+    document = models.FileField(upload_to='documents/')
 
+    def __str__(self):
+        return self.name
 
 class Work(models.Model):
 
     work_detail =models.ForeignKey("Employee",on_delete=models.CASCADE)
     work_name = models.CharField(max_length=100)
     work_duration= models.CharField()
-    employee_name = models.CharField()
+
     date = models.DateField()
     status = models.BooleanField(default=False)
 
@@ -83,7 +86,7 @@ class Payroll(models.Model):
 class Complaint(models.Model):
     complaint_details = models.ForeignKey("Employee", on_delete=models.CASCADE)
     subject = models.CharField(max_length=200)
-    date = models.DateField()
+    date = models.DateField(null=True, blank=True)
 
 
 
@@ -115,7 +118,7 @@ class Notification(models.Model):
     date_time = models.DateTimeField(auto_now_add=True)
 
 class Overtime(models.Model):
-    work_details = models.ForeignKey("Work",on_delete=models.DO_NOTHING)
+
     employee = models.ForeignKey("employee",on_delete=models.DO_NOTHING)
     month = (
         ("JANUARY", "JANUARY"),
@@ -165,12 +168,35 @@ class Overtime(models.Model):
     department = models.CharField(max_length=100,
                                   choices=department,
                                   default="UI/UX")
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
+
     hour = models.IntegerField()
 
+class Leave(models.Model):
 
 
+    employee = models.ForeignKey("Employee", on_delete=models.CASCADE)
+    date_time = models.DateTimeField(auto_now_add=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    duration = models.IntegerField()
+    reason = models.CharField(max_length=255)
 
+    LEAVE_TYPE = (
+        ("HALFDAY", "Half Day"),
+        ("FULLDAY", "Full Day"),
+        ("LATE", "Late"),
+    )
+
+    leave_type = models.CharField(max_length=20,choices=LEAVE_TYPE,default="FULLDAY")
+
+    STATUS_CHOICES = (
+        ("PENDING", "Pending"),
+        ("APPROVED", "Approved"),
+        ("REJECTED", "Rejected"),
+    )
+
+    status = models.CharField(max_length=20,choices=STATUS_CHOICES,default="PENDING")
 
 
 

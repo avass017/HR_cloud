@@ -1,148 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>HR Management Login</title>
+<meta charset="UTF-8">
+<title>HR Management Login</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background:
-                        url("https://www.hrmanagementapp.com/wp-content/uploads/2022/12/company-wide-meetings.png");
-            background-size: cover;
-            background-position: center;
-            font-family: 'Segoe UI', sans-serif;
-        }
+/* ================= BODY BACKGROUND ================= */
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: url("https://images.unsplash.com/photo-1497366216548-37526070297c")
+                no-repeat center center/cover;
+    position: relative;
+    overflow: hidden;
+}
 
-        .login-wrapper {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+/* Smooth zoom effect */
+body::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    animation: zoomBG 25s ease-in-out infinite alternate;
+    z-index: -2;
+}
 
-        .login-card {
-            width: 100%;
-            max-width: 420px;
-            padding: 40px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-            color: white;
-        }
+@keyframes zoomBG {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+}
 
-        .login-title {
-            text-align: center;
-            font-size: 26px;
-            font-weight: 600;
-            margin-bottom: 25px;
-        }
+/* Professional overlay */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        rgba(15,23,42,0.88),
+        rgba(37,99,235,0.70),
+        rgba(15,23,42,0.88)
+    );
+    backdrop-filter: blur(6px);
+    z-index: -1;
+}
 
-        .form-control {
-            border-radius: 10px;
-            padding: 12px;
-        }
+/* ================= LAYOUT ================= */
+.login-container {
+    height: 100vh;
+}
 
-        .form-control:focus {
-            box-shadow: 0 0 8px rgba(255,255,255,0.4);
-            border-color: #ffffff;
-        }
+/* LEFT SIDE */
+.brand-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    padding: 80px;
+    animation: slideInLeft 1s ease;
+}
 
-        .btn-login {
-            background-color: white;
-            color: #0a1f44;
-            font-weight: 600;
-            border-radius: 10px;
-            padding: 10px;
-            transition: 0.3s;
-        }
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-60px); }
+    to { opacity: 1; transform: translateX(0); }
+}
 
-        .btn-login:hover {
-            background-color: #0a1f44;
-            color: white;
-            border: 1px solid white;
-        }
+.brand-title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
 
-        .link-area a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
+.brand-subtitle {
+    font-size: 16px;
+    line-height: 1.8;
+    opacity: 0.9;
+}
 
-        .link-area a:hover {
-            text-decoration: underline;
-        }
+/* RIGHT SIDE */
+.form-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .alert {
-            border-radius: 10px;
-        }
-    </style>
+/* ================= GLASS CARD ================= */
+.login-card {
+    width: 100%;
+    max-width: 430px;
+    padding: 60px 50px;
+    border-radius: 25px;
+
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+
+    animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= TEXT ================= */
+.login-title {
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+}
+
+.login-sub {
+    text-align: center;
+    font-size: 14px;
+    color: #e2e8f0;
+    margin-bottom: 30px;
+}
+
+/* ================= FORM ================= */
+.form-label {
+    font-size: 14px;
+    color: #e2e8f0;
+}
+
+.form-control {
+    border-radius: 12px;
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.form-control::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+.form-control:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 15px rgba(96,165,250,0.5);
+    background: rgba(255,255,255,0.25);
+}
+
+/* ================= BUTTON ================= */
+.btn-login {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 15px;
+    border: none;
+    transition: 0.4s ease;
+}
+
+.btn-login:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(59,130,246,0.5);
+}
+
+/* ================= MODERN DIVIDER ================= */
+.divider-modern {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 35px 0;
+}
+
+.divider-modern::before,
+.divider-modern::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
+}
+
+.divider-modern span {
+    padding: 0 18px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+}
+
+/* ================= REGISTER BUTTONS ================= */
+.btn-outline-light {
+    border: 1px solid rgba(255,255,255,0.5);
+    color: #ffffff;
+    border-radius: 50px;
+    transition: 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .brand-section {
+        display: none;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="login-wrapper">
+<div class="container-fluid login-container">
+<div class="row h-100">
 
-    <div class="login-card">
-
-        {% for message in messages %}
-        {% if message %}
-        <div class="alert alert-danger">
-            {{ message }}
+<!-- LEFT -->
+<div class="col-md-6 brand-section">
+    <div>
+        <div class="brand-title">HR Management System</div>
+        <div class="brand-subtitle">
+            Manage employees, payroll, leave requests, and performance efficiently
+            with our secure HR platform.
         </div>
-        {% endif %}
-        {% endfor %}
-
-        <form method="post">
-            {% csrf_token %}
-
-            <div class="login-title">HR Management System</div>
-
-            <div class="mb-3">
-                <label class="form-label text-white">Username</label>
-                <input type="text" name="username" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label text-white">Password</label>
-                <input type="password" name="password" class="form-control" required>
-            </div>
-
-            <button type="submit" class="btn btn-login w-100 mt-3">
-                Login
-            </button>
-
-            <hr class="bg-white">
-
-         <div class="mt-4">
-
-    <div class="text-center mb-3">
-        <small class="text-light">Create New Account</small>
     </div>
-
-    <div class="d-grid gap-2">
-
-        <a href="{% url 'hr_add' %}" class="btn btn-outline-light rounded-pill">
-             Register as HR
-        </a>
-
-        <a href="{% url 'emp_add' %}" class="btn btn-outline-light rounded-pill">
-             Register as Employee
-        </a>
-
-    </div>
-
 </div>
 
+<!-- RIGHT -->
+<div class="col-md-6 form-section">
+<div class="login-card">
 
-        </form>
-    </div>
+{% for message in messages %}
+{% if message %}
+<div class="alert alert-danger">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
 
+<form method="post">
+{% csrf_token %}
+
+<div class="login-title">Welcome Back</div>
+<div class="login-sub">
+    Sign in to access your HR dashboard
+</div>
+
+<div class="mb-3">
+<label class="form-label">Username</label>
+<input type="text" name="username" class="form-control" placeholder="Enter your username" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Password</label>
+<input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+</div>
+
+<button type="submit" class="btn btn-login w-100 mt-2">
+    Login
+</button>
+
+<div class="divider-modern">
+    <span>Create New Account</span>
+</div>
+
+<div class="d-grid gap-2">
+<a href="{% url 'hr_add' %}" class="btn btn-outline-light">
+    Register as HR
+</a>
+
+<a href="{% url 'emp_add' %}" class="btn btn-outline-light">
+    Register as Employee
+</a>
+</div>
+
+</form>
+</div>
+</div>
+
+</div>
 </div>
 
 </body>

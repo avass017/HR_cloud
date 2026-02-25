@@ -15,7 +15,7 @@ urlpatterns = [
 
  path('employee_view',hrviews.employee_view,name='employee_view'),
  path('employee_delete/<int:id>',hrviews.employee_delete,name='employee_delete'),
- path('emp_update/<int:id>',hrviews.emp_update,name='emp_update'),
+ path('empl_update/<int:id>',hrviews.empl_update,name='empl_update'),
  path('Work_add',hrviews.Work_add,name='Work_add'),
 
 
@@ -31,7 +31,7 @@ urlpatterns = [
  path('hr_update/<int:id>',managerviews.hr_update,name='hr_update'),
  path('employes_view',managerviews.employes_view,name='employes_view'),
  path('employee_delete/<int:id>',managerviews.employee_delete,name='employee_delete'),
- path('employee_update/<int:id>',managerviews.employee_update,name='employee_update'),
+ path('emp_update/<int:id>',managerviews.emp_update,name='emp_update'),
  path('Start_project/<int:id>',empviews.Start_project,name='Start_project'),
 
  path('salary_add',hrviews.salary_add,name='salary_add'),
@@ -52,4 +52,16 @@ urlpatterns = [
  path('overtime',empviews.overtime,name='overtime'),
  path('over_view',empviews.over_view,name='over_view'),
  path('over_view_hr',hrviews.over_view_hr,name='over_view_hr'),
+# Employee
+ path('leave_add',empviews.leave_add,name='leave_add'),
+ path('leave_view', empviews.leave_view, name='leave_view'),
+
+# HR
+path('leave_view_hr/', hrviews.leave_view_hr, name='leave_view_hr'),
+path('accept_leave/<int:id>/', hrviews.accept_leave, name='accept_leave'),
+path('reject_leave/<int:id>/', hrviews.reject_leave, name='reject_leave'),
+path('Log_out',empviews.Log_out,name='Log_out'),
+path('Log_out_m',managerviews.Log_out_m,name='Log_out_m'),
+path('Log_out_hr',hrviews.Log_out_hr, name='Log_out_hr'),
+
 ]

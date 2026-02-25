@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
@@ -18,14 +19,14 @@ def employee_delete(request,id):
     emp_del.delete()
     return redirect('employee_view')
 
-def employee_update(request, id):
+def emp_update(request, id):
     emp_up = Employee.objects.get(id=id)
 
     if request.method == "POST":
         up_form = EmployeeRegister(request.POST, instance=emp_up)
         if up_form.is_valid():
             up_form.save()
-            return redirect('empiew')
+            return redirect('employes_view')
     else:
         up_form = EmployeeRegister(instance=emp_up)
     return render(request, 'manager/emp_update.html', {'data': up_form})
@@ -74,3 +75,7 @@ def noficication(request):
 def complaint_m(request):
     data=Complaint.objects.all()
     return render(request,'manager/complaint_manager.html',{'data':data})
+
+def Log_out_m(request):
+    logout(request)
+    return redirect('login_view')
