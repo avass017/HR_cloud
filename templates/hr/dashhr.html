@@ -192,11 +192,13 @@ body {
 <div class="sidebar">
     <div class="sidebar-header">HR Enterprise</div>
     <ul>
+         <li><a href="{% url 'noficication_hr' %}"><i class="mdi mdi-account-group"></i>info_Manager</a></li>
         <li><a href="{% url 'employee_view' %}"><i class="mdi mdi-account-group"></i>Employees</a></li>
         <li><a href="{% url 'leave_view_hr' %}"><i class="mdi mdi-calendar-clock"></i>Leave</a></li>
         <li><a href="{% url 'salary_view' %}"><i class="mdi mdi-cash-multiple"></i>Payroll</a></li>
         <li><a href="{% url 'complaint_hr' %}"><i class="mdi mdi-alert-circle"></i>Complaints</a></li>
         <li><a href="{% url 'over_view_hr' %}"><i class="mdi mdi-timer"></i>Overtime</a></li>
+        <li><a href="{% url 'project_list' %}"><i class="mdi mdi-timer"></i>Work</a></li>
     </ul>
 </div>
 
@@ -216,9 +218,7 @@ body {
         {% endblock %}
     </div>
 
-    <div class="footer">
-        © 2026 HR Enterprise System. Designed with Premium UI.
-    </div>
+
 
 </div>
 

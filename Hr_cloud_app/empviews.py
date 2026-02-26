@@ -72,7 +72,7 @@ def complaint_view(request):
 
 def reply_view(request):
     employee = Employee.objects.get(employee_details=request.user)
-    data = Reply.objects.filter(complaint_details=employee)
+    data = Reply.objects.filter(complaint__employee=employee)
     return render(request,'employee/complaint_reply.html',{'data':data})
 
 
