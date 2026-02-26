@@ -3,83 +3,62 @@
 
 {% block content %}
 
-<div class="container py-5">
+<div class="profile-container">
 
-    <div class="card professional-profile shadow-sm border-0">
+    <!-- ===== PROFILE HEADER ===== -->
+    <div class="profile-banner">
+        <div class="profile-left">
 
-        <!-- Header -->
-        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3 px-4">
-            <div>
-                <h4 class="fw-bold mb-1">Employee Profile</h4>
-                <small class="text-muted">Complete employee information</small>
+            {% if data.document %}
+                <img src="{{ data.document.url }}" class="profile-avatar">
+            {% else %}
+                <div class="profile-avatar placeholder">
+                    {{ data.name|first|upper }}
+                </div>
+            {% endif %}
+
+            <div class="profile-basic">
+                <h3>{{ data.name }}</h3>
+                <p>{{ data.department }}</p>
+                <span class="employee-id">Employee ID: {{ data.id }}</span>
             </div>
 
-            <div>
-                <a href="{% url 'emp_profile' %}" class="btn btn-outline-secondary btn-sm px-4 rounded-pill">
-                    Back
-                </a>
-                <a href="{% url 'employee_update' data.id %}" class="btn btn-primary btn-sm px-4 rounded-pill ms-2">
-                    Edit Profile
-                </a>
-            </div>
         </div>
 
-        <!-- Body -->
-        <div class="card-body p-5">
+        <div class="profile-actions">
 
-            <div class="row">
+        <a href="{% url 'profile_update' data.id %}"
+   class="btn btn-primary btn-sm px-4 rounded-pill ms-2">
+    Edit Profile
+</a>
+        </div>
+    </div>
 
-                <!-- Profile Image Section -->
-                <div class="col-md-4 text-center border-end">
-                    <div class="profile-img-wrapper mb-3">
-                        <img src="{{ data.document.url }}" alt="Profile Image" class="profile-img">
-                    </div>
+    <!-- ===== PROFILE DETAILS ===== -->
+    <div class="profile-card">
 
-                    <h5 class="fw-bold mb-1">{{ data.name }}</h5>
-                    <p class="text-muted mb-0">{{ data.department }}</p>
+        <h5 class="section-title">Personal Information</h5>
 
-                    <div class="mt-3">
-                        <label class="btn btn-outline-primary btn-sm rounded-pill">
-                            Change Photo
-                            <input type="file" hidden>
-                        </label>
-                    </div>
-                </div>
+        <div class="info-grid">
 
-                <!-- Profile Details Section -->
-                <div class="col-md-8 ps-md-5">
+            <div class="info-item">
+                <label>Email</label>
+                <p>{{ data.email }}</p>
+            </div>
 
-                    <div class="row mb-4">
-                        <div class="col-md-6 mb-3">
-                            <label class="profile-label">User ID</label>
-                            <div class="profile-value">{{ data.id }}</div>
-                        </div>
+            <div class="info-item">
+                <label>Phone</label>
+                <p>{{ data.phone }}</p>
+            </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="profile-label">Email</label>
-                            <div class="profile-value">{{ data.email }}</div>
-                        </div>
-                    </div>
+            <div class="info-item">
+                <label>Department</label>
+                <p>{{ data.department }}</p>
+            </div>
 
-                    <div class="row mb-4">
-                        <div class="col-md-6 mb-3">
-                            <label class="profile-label">Phone</label>
-                            <div class="profile-value">{{ data.phone }}</div>
-                        </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label class="profile-label">Department</label>
-                            <div class="profile-value">{{ data.department }}</div>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="profile-label">Address</label>
-                        <div class="profile-value">{{ data.address }}</div>
-                    </div>
-
-                </div>
-
+            <div class="info-item">
+                <label>Address</label>
+                <p>{{ data.address }}</p>
             </div>
 
         </div>
@@ -90,77 +69,129 @@
 
 <style>
 
-/* ===== PAGE ===== */
-body {
-    background-color: #f4f6f9 !important;
-    font-family: "Segoe UI", sans-serif;
-}
-
-/* ===== CARD ===== */
-.professional-profile {
-    border-radius: 14px;
-    background: #ffffff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.professional-profile:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-
-/* ===== PROFILE IMAGE ===== */
-.profile-img-wrapper {
-    width: 140px;
-    height: 140px;
+/* ===== PAGE CONTAINER ===== */
+.profile-container {
+    max-width: 1100px;
     margin: auto;
 }
 
-.profile-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+/* ===== PROFILE BANNER ===== */
+.profile-banner {
+    background: linear-gradient(90deg,#2563eb,#6366f1);
+    padding: 30px 40px;
+    border-radius: 18px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.profile-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    border: 3px solid #e9ecef;
+    object-fit: cover;
+    border: 4px solid rgba(255,255,255,0.5);
 }
 
-/* ===== LABELS ===== */
-.profile-label {
-    font-size: 13px;
-    color: #6c757d;
-    font-weight: 500;
-    margin-bottom: 4px;
-    display: block;
-}
-
-/* ===== VALUES ===== */
-.profile-value {
-    font-size: 15px;
+.profile-avatar.placeholder {
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
     font-weight: 600;
-    color: #212529;
-    padding: 6px 0;
-    border-bottom: 1px solid #f1f1f1;
 }
 
-/* ===== BUTTONS ===== */
-.btn-primary {
-    background-color: #0d6efd;
+.profile-basic h3 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.profile-basic p {
+    margin: 4px 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.employee-id {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.profile-actions .btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.btn-light {
+    background: white;
+    color: #2563eb;
     border: none;
-    transition: background 0.25s;
+}
+
+.btn-primary {
+    background: #1e40af;
+    border: none;
+    color: white;
 }
 
 .btn-primary:hover {
-    background-color: #0b5ed7;
+    background: #1d4ed8;
 }
 
-.btn-outline-secondary {
-    border-color: #6c757d;
-    color: #6c757d;
+/* ===== PROFILE CARD ===== */
+.profile-card {
+    background: white;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.05);
 }
 
-.btn-outline-secondary:hover {
-    background-color: #6c757d;
-    color: #fff;
+.section-title {
+    font-weight: 600;
+    margin-bottom: 25px;
+    border-left: 4px solid #2563eb;
+    padding-left: 12px;
+}
+
+/* ===== INFO GRID ===== */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.info-item label {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.info-item p {
+    margin: 6px 0 0;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+    .profile-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
 }
 
 </style>

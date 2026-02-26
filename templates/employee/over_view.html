@@ -3,104 +3,281 @@
 
 {% block content %}
 
-<div class="container py-5">
+<div class="overtime-wrapper">
 
-    <!-- Page Header with Add Complaint Button -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-primary">Employee Complaints</h2>
-        <a href="{% url 'overtime' %}" class="btn btn-primary rounded-pill px-4 py-2">
-            + Add OverTime
+    <!-- ================= HEADER ================= -->
+    <div class="overtime-header">
+        <div>
+            <h1 class="overtime-title">OverTime Records</h1>
+            <p class="overtime-subtitle">
+                Manage and track your overtime work hours
+            </p>
+        </div>
+
+        <a href="{% url 'overtime' %}" class="btn-add-overtime">
+            + Add Overtime
         </a>
     </div>
 
-    <!-- Table Card -->
-    <div class="card shadow-sm rounded-4 p-4">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle text-center mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>Sl No</th>
 
-                       <th>Day</th>
-                        <th>Department</th>
-                        <th>Date</th>
-                         <th>hour</th>
+    <!-- ================= KPI SECTION ================= -->
 
-                    </tr>
-                </thead>
-             <tbody>
-    {% for i in data %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
 
-            <td>{{ i.days }}</td>
-            <td>{{ i.department }}</td>
-            <td>{{ i.date }}</td>
-            <td>{{ i.hour }}</td>
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="6" class="text-center text-muted py-4">
-                No Overtime Found
-            </td>
-        </tr>
-    {% endfor %}
-</tbody>
-            </table>
-        </div>
+
+    <!-- ================= TABLE ================= -->
+    <div class="table-container">
+
+        <table class="overtime-table">
+
+            <thead>
+                <tr>
+                    <th style="width:80px;">#</th>
+                    <th>Day</th>
+                    <th>Department</th>
+                    <th>Date</th>
+                    <th style="width:120px;">Hours</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for i in data %}
+                <tr>
+                    <td class="muted">{{ forloop.counter }}</td>
+
+                    <td class="day-text">
+                        {{ i.days }}
+                    </td>
+
+                    <td>
+                        <span class="dept-pill">
+                            {{ i.department }}
+                        </span>
+                    </td>
+
+                    <td class="muted">
+                        {{ i.date }}
+                    </td>
+
+                    <td>
+                        <span class="hour-badge">
+                            {{ i.hour }} hrs
+                        </span>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">
+                        <div class="empty-state">
+                            <i class="mdi mdi-timer-off-outline"></i>
+                            <h5>No Overtime Records</h5>
+                            <p>You haven't logged any overtime yet.</p>
+
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
     </div>
 
 </div>
 
+
 <style>
-/* ===== PAGE STYLING ===== */
-body {
-    background-color: #f8f9fa !important;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+/* ===== FORCE WHITE BACKGROUND ===== */
+body,
+html,
+.wrapper,
+.main-panel,
+.content-wrapper {
+    background: #ffffff !important;
 }
 
-/* ===== TABLE CARD ===== */
-.card {
-    background-color: #ffffff;
-    border-radius: 16px;
-    transition: all 0.3s ease;
+/* ===== WRAPPER ===== */
+.overtime-wrapper {
+    padding: 60px 80px;
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
 }
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+
+/* ===== HEADER ===== */
+.overtime-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
 }
 
-/* ===== TABLE STYLING ===== */
-.table thead th {
-    font-weight: 600;
-    color: #495057;
-    border-bottom: 2px solid #dee2e6;
+.overtime-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #0f172a;
 }
 
-.table tbody tr:hover {
-    background-color: #f1f3f6;
-    transition: 0.2s ease;
-}
-
-/* ===== BUTTON STYLING ===== */
-.btn-primary {
-    background-color: #0d6efd;
-    color: #fff;
-    font-weight: 500;
-    transition: all 0.25s ease;
-}
-
-.btn-primary:hover {
-    background-color: #0b5ed7;
-    transform: translateY(-2px);
-}
-
-/* ===== EMPTY ROW ===== */
-.text-muted {
-    font-style: italic;
+.overtime-subtitle {
     font-size: 14px;
+    color: #64748b;
 }
+
+
+/* ===== ADD BUTTON ===== */
+.btn-add-overtime {
+    background: linear-gradient(135deg,#2563eb,#1e40af);
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.btn-add-overtime:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(37,99,235,0.3);
+}
+
+
+/* ===== KPI SECTION ===== */
+.overtime-stats {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 45px;
+}
+
+.stat-box {
+    flex: 1;
+    background: #f8fafc;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    transition: 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.stat-number {
+    font-size: 26px;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #64748b;
+}
+
+
+/* ===== TABLE ===== */
+.table-container {
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.04);
+    overflow: hidden;
+}
+
+.overtime-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.overtime-table thead {
+    background: #0f172a;
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+}
+
+.overtime-table th {
+    padding: 20px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.overtime-table td {
+    padding: 22px 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.overtime-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.muted {
+    color: #64748b;
+}
+
+.day-text {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+
+/* ===== BADGES ===== */
+.dept-pill {
+    background: #e0f2fe;
+    color: #075985;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.hour-badge {
+    background: #dcfce7;
+    color: #166534;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-state i {
+    font-size: 60px;
+    color: #cbd5e1;
+}
+
+.empty-state h5 {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.empty-state p {
+    color: #64748b;
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+    .overtime-wrapper {
+        padding: 30px 20px;
+    }
+
+    .overtime-stats {
+        flex-direction: column;
+    }
+
+    .overtime-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+
 </style>
 
 {% endblock %}

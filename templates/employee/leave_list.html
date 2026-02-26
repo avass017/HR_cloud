@@ -3,186 +3,274 @@
 
 {% block content %}
 
-<style>
+<div class="enterprise-leave-wrapper">
 
-/* ===== PAGE BACKGROUND ===== */
-body {
-    background: linear-gradient(to right, #f1f5f9, #f8fafc) !important;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-/* ===== CARD ===== */
-.leave-wrapper {
-    background: #ffffff;
-    border-radius: 18px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
-    padding: 30px;
-    transition: 0.3s ease;
-}
-
-.leave-wrapper:hover {
-    transform: translateY(-5px);
-}
-
-/* ===== HEADER ===== */
-.leave-title {
-    font-weight: 700;
-    color: #1e293b;
-    font-size: 22px;
-}
-
-.sub-text {
-    font-size: 13px;
-    color: #64748b;
-}
-
-/* ===== BUTTON ===== */
-.btn-gradient {
-    background: linear-gradient(45deg, #2563eb, #1e40af);
-    color: #fff;
-    border: none;
-    border-radius: 30px;
-    padding: 8px 20px;
-    transition: 0.3s ease;
-}
-
-.btn-gradient:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(45deg, #1e40af, #1e3a8a);
-}
-
-/* ===== TABLE ===== */
-.table thead th {
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #475569;
-    border-bottom: 2px solid #e2e8f0;
-}
-
-.table tbody tr {
-    transition: 0.2s ease;
-}
-
-.table tbody tr:hover {
-    background-color: #f1f5f9;
-}
-
-/* ===== STATUS BADGES ===== */
-.status-badge {
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.badge-approved {
-    background-color: #dcfce7;
-    color: #166534;
-}
-
-.badge-rejected {
-    background-color: #fee2e2;
-    color: #991b1b;
-}
-
-.badge-pending {
-    background-color: #fef9c3;
-    color: #854d0e;
-}
-
-.leave-type {
-    background-color: #e0f2fe;
-    color: #075985;
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 12px;
-}
-
-</style>
-
-<div class="container py-5">
-
-    <div class="leave-wrapper">
-
-        <!-- Header Section -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h3 class="leave-title mb-1">My Leave Requests</h3>
-                <p class="sub-text mb-0">Track and manage your leave applications</p>
-            </div>
-
-            <a href="{% url 'leave_add' %}" class="btn btn-gradient">
-                + Apply Leave
-            </a>
+    <!-- ================= HEADER ================= -->
+    <div class="enterprise-header">
+        <div>
+            <h1 class="enterprise-title">My Leave Requests</h1>
+            <p class="enterprise-subtitle">
+                View, track and manage all your leave applications
+            </p>
         </div>
 
-        <div class="table-responsive">
-            <table class="table align-middle">
+        <a href="{% url 'leave_add' %}" class="btn-enterprise-primary">
+            <i class="mdi mdi-plus"></i> Apply Leave
+        </a>
+    </div>
 
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Duration</th>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>Reason</th>
-                        <th>Leave Type</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
+    <!-- ================= TABLE ================= -->
+    <div class="enterprise-table-container">
 
-                <tbody>
-                    {% for i in data %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
+        <table class="enterprise-table">
 
-                        <td>
-                            <strong>{{ i.duration }}</strong>
-                        </td>
+            <thead>
+                <tr>
+                    <th style="width:60px;">#</th>
+                    <th style="width:120px;">Duration</th>
+                    <th style="width:140px;">Start Date</th>
+                    <th style="width:140px;">End Date</th>
+                    <th>Reason</th>
+                    <th style="width:160px;">Leave Type</th>
+                    <th style="width:140px;">Status</th>
+                </tr>
+            </thead>
 
-                        <td>{{ i.start_date }}</td>
-                        <td>{{ i.end_date }}</td>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td class="muted-cell">
+                        {{ forloop.counter }}
+                    </td>
 
-                        <td>{{ i.reason }}</td>
+                    <td>
+                        <strong>{{ i.duration }}</strong>
+                    </td>
 
-                        <td>
-                            <span class="leave-type">
-                                {{ i.get_leave_type_display }}
+                    <td class="muted-cell">
+                        {{ i.start_date }}
+                    </td>
+
+                    <td class="muted-cell">
+                        {{ i.end_date }}
+                    </td>
+
+                    <td>
+                        <div class="reason-text">
+                            {{ i.reason|truncatechars:80 }}
+                        </div>
+                    </td>
+
+                    <td>
+                        <span class="leave-type-pill">
+                            {{ i.get_leave_type_display }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {% if i.status == 'Approved' %}
+                            <span class="status-pill status-approved">
+                                {{ i.get_status_display }}
                             </span>
-                        </td>
+                        {% elif i.status == 'Rejected' %}
+                            <span class="status-pill status-rejected">
+                                {{ i.get_status_display }}
+                            </span>
+                        {% else %}
+                            <span class="status-pill status-pending">
+                                {{ i.get_status_display }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
 
-                        <td>
-                            {% if i.status == 'Approved' %}
-                                <span class="status-badge badge-approved">
-                                    {{ i.get_status_display }}
-                                </span>
-                            {% elif i.status == 'Rejected' %}
-                                <span class="status-badge badge-rejected">
-                                    {{ i.get_status_display }}
-                                </span>
-                            {% else %}
-                                <span class="status-badge badge-pending">
-                                    {{ i.get_status_display }}
-                                </span>
-                            {% endif %}
-                        </td>
-                    </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">
+                        <div class="enterprise-empty">
+                            <i class="mdi mdi-calendar-remove-outline"></i>
+                            <h5>No Leave Requests Found</h5>
+                            <p>You haven’t applied for any leave yet.</p>
 
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center text-muted py-4">
-                            No leave records found.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
 
-            </table>
-        </div>
+        </table>
 
     </div>
 
 </div>
+
+<style>
+
+/* ================= FULL SCREEN WRAPPER ================= */
+.enterprise-leave-wrapper {
+    padding: 50px 70px;
+    background: #f6f8fb;
+    min-height: 100vh;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ================= HEADER ================= */
+.enterprise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.enterprise-title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #1e293b;
+}
+
+.enterprise-subtitle {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* ================= BUTTON ================= */
+.btn-enterprise-primary {
+    background: #2563eb;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    transition: 0.25s ease;
+}
+
+.btn-enterprise-primary:hover {
+    background: #1d4ed8;
+    box-shadow: 0 8px 20px rgba(37,99,235,0.25);
+    transform: translateY(-2px);
+}
+
+/* ================= TABLE CONTAINER ================= */
+.enterprise-table-container {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+    overflow: hidden;
+}
+
+/* ================= TABLE ================= */
+.enterprise-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.enterprise-table thead {
+    background: #f1f5f9;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.enterprise-table thead th {
+    padding: 18px 24px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: #475569;
+    font-weight: 600;
+}
+
+.enterprise-table tbody td {
+    padding: 22px 24px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.enterprise-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.enterprise-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ================= TEXT STYLES ================= */
+.muted-cell {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.reason-text {
+    color: #334155;
+    font-size: 14px;
+}
+
+/* ================= LEAVE TYPE ================= */
+.leave-type-pill {
+    background: #e0f2fe;
+    color: #075985;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ================= STATUS ================= */
+.status-pill {
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-approved {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-rejected {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-pending {
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+/* ================= EMPTY STATE ================= */
+.enterprise-empty {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.enterprise-empty i {
+    font-size: 60px;
+    color: #cbd5e1;
+}
+
+.enterprise-empty h5 {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.enterprise-empty p {
+    color: #64748b;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+    .enterprise-leave-wrapper {
+        padding: 40px 25px;
+    }
+
+    .enterprise-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
+
+</style>
 
 {% endblock %}

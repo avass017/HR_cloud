@@ -16,7 +16,8 @@ def emp_profile(request):
 
 
 
-def employee_update(request, id):
+def profile_update(request,id):
+
     emp_up = Employee.objects.get(id=id)
 
     if request.method == "POST":

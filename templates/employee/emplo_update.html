@@ -3,39 +3,174 @@
 
 {% block content %}
 
-<div class="container py-5">
+<style>
 
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h3 class="fw-bold mb-0">Edit Profile</h3>
-            <small class="text-muted">Update your personal information</small>
-        </div>
-        <a href="{% url 'emp_profile' %}" class="btn btn-outline-secondary rounded-pill px-4">
-            Back
-        </a>
+/* ================= ENTERPRISE EDIT PAGE ================= */
+
+body,
+.content-wrapper,
+.main-panel {
+    background: #f4f7fb !important;
+    padding: 50px !important;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ===== MAIN WRAPPER ===== */
+.edit-wrapper {
+    display: flex;
+    gap: 40px;
+    animation: fadeInUp 0.5s ease-in-out;
+}
+
+/* ===== LEFT INFO PANEL ===== */
+.edit-info {
+    flex: 1;
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    border-radius: 20px;
+    padding: 40px;
+    color: white;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.edit-info h2 {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.edit-info p {
+    font-size: 14px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+/* ===== RIGHT FORM PANEL ===== */
+.edit-form-container {
+    flex: 2;
+}
+
+.edit-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 45px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.06);
+    transition: 0.3s ease;
+}
+
+.edit-card:hover {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+/* ===== SECTION TITLE ===== */
+.form-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #0f172a;
+}
+
+/* ===== INPUTS ===== */
+input,
+select,
+textarea {
+    border-radius: 8px !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 12px !important;
+    font-size: 14px !important;
+    transition: 0.3s !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.15) !important;
+}
+
+/* ===== BUTTONS ===== */
+.action-buttons {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.btn-secondary-custom {
+    border-radius: 30px;
+    padding: 10px 24px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #475569;
+    transition: 0.3s;
+}
+
+.btn-secondary-custom:hover {
+    background: #f1f5f9;
+}
+
+.btn-primary-custom {
+    border-radius: 30px;
+    padding: 10px 30px;
+    background: linear-gradient(90deg, #2563eb, #1e40af);
+    border: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37,99,235,0.3);
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+
+<div class="edit-wrapper">
+
+    <!-- ===== LEFT PANEL ===== -->
+    <div class="edit-info">
+        <h2>Edit Employee</h2>
+        <p>
+            Modify employee profile details, update contact information,
+            or adjust department assignments. All changes are securely
+            stored in the HR management system.
+        </p>
     </div>
 
-    <!-- Professional Card -->
-    <div class="card edit-card shadow-sm border-0">
 
-        <div class="card-body p-5">
+    <!-- ===== RIGHT FORM ===== -->
+    <div class="edit-form-container">
+        <div class="edit-card">
 
-            <form method="POST" enctype="multipart/form-data">
+            <div class="form-title">
+                Employee Information
+            </div>
+
+            <form method="POST">
                 {% csrf_token %}
 
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ data|crispy }}
-                    </div>
-                </div>
+                {{ data|crispy }}
 
-                <!-- Buttons -->
-                <div class="d-flex justify-content-end gap-3 mt-4">
-                    <a href="{% url 'emp_profile' %}" class="btn btn-light rounded-pill px-4">
+                <div class="action-buttons">
+                    <a href="{% url 'employee_view' %}" class="btn-secondary-custom">
                         Cancel
                     </a>
-                    <button type="submit" class="btn btn-primary rounded-pill px-4">
+
+                    <button type="submit" class="btn-primary-custom">
                         Save Changes
                     </button>
                 </div>
@@ -43,64 +178,8 @@
             </form>
 
         </div>
-
     </div>
 
 </div>
-
-<style>
-
-/* ===== PAGE BACKGROUND ===== */
-body {
-    background-color: #f4f6f9 !important;
-    font-family: "Segoe UI", sans-serif;
-}
-
-/* ===== CARD STYLE ===== */
-.edit-card {
-    border-radius: 14px;
-    background-color: #ffffff;
-    transition: all 0.3s ease;
-}
-
-.edit-card:hover {
-    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-}
-
-/* ===== FORM INPUTS ===== */
-input, select, textarea {
-    border-radius: 8px !important;
-    border: 1px solid #ced4da !important;
-    padding: 10px !important;
-    background-color: #ffffff !important;
-    color: #212529 !important;
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: #0d6efd !important;
-    box-shadow: 0 0 0 0.15rem rgba(13,110,253,.25) !important;
-}
-
-/* ===== BUTTONS ===== */
-.btn-primary {
-    background-color: #0d6efd;
-    border: none;
-    font-weight: 500;
-}
-
-.btn-primary:hover {
-    background-color: #0b5ed7;
-}
-
-.btn-light {
-    background-color: #f1f3f5;
-    border: none;
-}
-
-.btn-light:hover {
-    background-color: #e2e6ea;
-}
-
-</style>
 
 {% endblock %}

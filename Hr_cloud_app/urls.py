@@ -21,8 +21,8 @@ urlpatterns = [
 
  path('emp_profile/', empviews.emp_profile, name='emp_profile'),
 
- path('employee_update/<int:id>',empviews.employee_update,name='employee_update'),
- path('work_list',empviews.work_list,name='work_list'),
+    path('profile_update/<int:id>/', empviews.profile_update, name='profile_update'),
+    path('work_list',empviews.work_list,name='work_list'),
  path('project_list',hrviews.project_list,name='project_list'),
  path('Project_delete/<int:id>',hrviews.Project_delete,name='Project_delete'),
 
@@ -42,8 +42,8 @@ urlpatterns = [
  path('complaint_add',empviews.complaint_add,name='complaint_add'),
  path('complaint_view',empviews.complaint_view,name='complaint_view'),
  path('complaint_hr',hrviews.complaint_hr,name='complaint_hr'),
- path('reply_add',hrviews.reply_add,name='reply_add'),
- path('reply_view',hrviews.reply_view,name='reply_view'),
+ path('reply_add/<int:id>/', hrviews.reply_add, name='reply_add'),
+ path('reply_view/<int:id>',hrviews.reply_view,name='reply_view'),
  path('reply_view',empviews.reply_view,name='reply_view'),
  path('noficication',managerviews.noficication,name='noficication'),
  path('send_notification',managerviews.send_notification,name='send_notification'),

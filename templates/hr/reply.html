@@ -4,90 +4,125 @@
 {% block content %}
 
 <style>
-/* ===== PAGE CONTAINER ===== */
-.form-container {
+
+/* ===== PAGE WRAPPER ===== */
+.reply-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 60px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 60px 20px;
+    background: linear-gradient(to right, #f8fafc, #eef2f7);
 }
 
-/* ===== CARD STYLE ===== */
-.form-card {
-    background-color: #ffffff;
-    padding: 35px 40px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+/* ===== MAIN CARD ===== */
+.reply-card {
+    background: #ffffff;
     width: 100%;
-    max-width: 700px;
-    transition: all 0.3s ease-in-out;
+    max-width: 850px;
+    border-radius: 18px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    animation: fadeIn 0.4s ease-in-out;
 }
 
-.form-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+/* ===== ANIMATION ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== FORM TITLE ===== */
-.form-card h2 {
+/* ===== TITLE ===== */
+.reply-title {
+    font-size: 28px;
     font-weight: 700;
-    font-size: 26px;
-    color: #0d6efd;
-    margin-bottom: 25px;
+    color: #2563eb;
+    margin-bottom: 30px;
     text-align: center;
 }
 
-/* ===== INPUTS & TEXTAREA ===== */
+/* ===== COMPLAINT PREVIEW BOX ===== */
+.complaint-box {
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border-left: 4px solid #2563eb;
+}
+
+.complaint-box h5 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.complaint-box p {
+    margin: 0;
+    color: #475569;
+}
+
+/* ===== FORM INPUT STYLING ===== */
 input, select, textarea {
-    background-color: #ffffff !important;
-    border: 1px solid #ced4da !important;
-    border-radius: 8px !important;
-    padding: 10px !important;
-    font-size: 15px !important;
-    color: #495057 !important;
+    border-radius: 10px !important;
+    padding: 12px !important;
+    border: 1px solid #d1d5db !important;
 }
 
 input:focus, select:focus, textarea:focus {
-    border-color: #0d6efd !important;
-    box-shadow: 0 0 0 2px rgba(13,110,253,0.15) !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.15) !important;
 }
 
 /* ===== BUTTON ===== */
-.btn-primary {
-    background-color: #0d6efd;
+.btn-send {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
     color: #ffffff;
-    border-radius: 25px;
-    padding: 10px 28px;
-    font-size: 15px;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 30px;
     font-weight: 600;
-    transition: all 0.25s ease-in-out;
-    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
 }
 
-.btn-primary:hover {
-    background-color: #0b5ed7;
-    transform: translateY(-2px);
+.btn-send:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37,99,235,0.3);
 }
 
-/* ===== CENTERED BUTTON ===== */
-.text-center {
-    display: flex;
-    justify-content: center;
+/* ===== CENTER BUTTON ===== */
+.button-area {
+    text-align: center;
     margin-top: 25px;
 }
+
 </style>
 
-<div class="form-container">
-    <div class="form-card">
 
-        <h2>Send HR Reply</h2>
+<div class="reply-wrapper">
+    <div class="reply-card">
 
+        <div class="reply-title">
+            HR Response Panel
+        </div>
+
+        <!-- Complaint Preview -->
+        {% if complaint %}
+        <div class="complaint-box">
+            <h5>Complaint Subject:</h5>
+            <p>{{ complaint.subject }}</p>
+
+            <br>
+
+            <h5>Complaint Message:</h5>
+            <p>{{ complaint.message }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Reply Form -->
         <form method="POST">
             {% csrf_token %}
             {{ form|crispy }}
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">
+            <div class="button-area">
+                <button type="submit" class="btn-send">
                     Send Reply
                 </button>
             </div>

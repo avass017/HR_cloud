@@ -111,7 +111,7 @@ class Complaint(models.Model):
 class Reply(models.Model):
 
   subject = models.CharField(max_length=200)
-  date = models.DateField()
+  date_time = models.DateTimeField(auto_now_add=True)
 
 class Notification(models.Model):
     message= models.TextField()

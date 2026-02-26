@@ -60,7 +60,11 @@ class ReplyRegister(forms.ModelForm):
         model = Reply
         fields = '__all__'
         widgets = {
-            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+             'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Enter notification message here...'
+            }),
 
         }
 class NotificationRegister(forms.ModelForm):
@@ -97,5 +101,6 @@ class LeaveRegister(forms.ModelForm):
             }),
             'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+
 
         }

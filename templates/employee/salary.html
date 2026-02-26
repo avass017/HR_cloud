@@ -3,105 +3,298 @@
 
 {% block content %}
 
-<div class="container py-5">
+<div class="payroll-wrapper">
 
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-primary">Payroll Records</h2>
+    <!-- ================= HEADER ================= -->
+    <div class="payroll-header">
+        <div>
+            <h1 class="payroll-title">Payroll Records</h1>
+            <p class="payroll-subtitle">
+                View and manage employee salary transactions
+            </p>
+        </div>
+
+        <div class="employee-badge">
+            {{ request.user }}
+        </div>
     </div>
 
-    <!-- Table Card -->
-    <div class="card shadow-sm rounded-4 p-4">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle text-center mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>Sl No</th>
-                        <th>Employee</th>
-                        <th>Salary</th>
-                        <th>Debited Date</th>
-                        <th>Department</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for i in data %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ i.payroll_details }}</td>
-                            <td>{{ i.salary }}</td>
-                            <td>{{ i.date }}</td>
-                            <td>{{ i.department }}</td>
-                            <td>
-                                <button class="btn btn-success btn-sm rounded-pill">
-                                    Credit
-                                </button>
-                            </td>
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <td colspan="6" class="text-center text-muted py-4">
-                                No payroll records found
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+
+    <!-- ================= KPI SECTION ================= -->
+    <div class="payroll-stats">
+
+        <div class="stat-box">
+            <div class="stat-number">{{ data|length }}</div>
+            <div class="stat-label">Total Records</div>
         </div>
+
+        <div class="stat-box">
+            <div class="stat-number">₹ {{ data.0.salary|default:"0" }}</div>
+            <div class="stat-label">Latest Salary</div>
+        </div>
+
+        <div class="stat-box">
+            <div class="stat-number">Active</div>
+            <div class="stat-label">Payroll Status</div>
+        </div>
+
+    </div>
+
+
+    <!-- ================= TABLE ================= -->
+    <div class="table-container">
+
+        <table class="payroll-table">
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Employee</th>
+                    <th>Salary</th>
+                    <th>Debited Date</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for i in data %}
+                <tr>
+                    <td class="muted">{{ forloop.counter }}</td>
+
+                    <td>
+                        <div class="emp-name">{{ i.payroll_details }}</div>
+                    </td>
+
+                    <td class="salary">₹ {{ i.salary }}</td>
+
+                    <td class="muted">{{ i.date }}</td>
+
+                    <td>
+                        <span class="dept-pill">
+                            {{ i.department }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <button class="btn-credit">
+                            Credited
+                        </button>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">
+                        <div class="empty-state">
+                            <i class="mdi mdi-cash-remove"></i>
+                            <h5>No Payroll Records Found</h5>
+                            <p>No salary transactions available.</p>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
     </div>
 
 </div>
 
+
 <style>
-/* ===== PAGE STYLING ===== */
-body {
-    background-color: #f8f9fa !important;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+/* ===== FORCE CLEAN WHITE ===== */
+body,
+html,
+.wrapper,
+.main-panel,
+.content-wrapper {
+    background: #ffffff !important;
 }
 
-/* ===== TABLE CARD ===== */
-.card {
-    background-color: #ffffff;
-    border-radius: 16px;
-    transition: all 0.3s ease;
+/* ===== WRAPPER ===== */
+.payroll-wrapper {
+    padding: 60px 80px;
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
 }
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+
+/* ===== HEADER ===== */
+.payroll-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
 }
 
-/* ===== TABLE STYLING ===== */
-.table thead th {
+.payroll-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.payroll-subtitle {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.employee-badge {
+    background: #f1f5f9;
+    padding: 10px 20px;
+    border-radius: 30px;
     font-weight: 600;
-    color: #495057;
-    border-bottom: 2px solid #dee2e6;
+    color: #2563eb;
 }
 
-.table tbody tr:hover {
-    background-color: #f1f3f6;
-    transition: 0.2s ease;
+
+/* ===== KPI SECTION ===== */
+.payroll-stats {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 45px;
 }
 
-/* ===== BUTTON STYLING ===== */
-.btn-success {
-    background-color: #198754;
-    border: none;
-    font-weight: 500;
-    padding: 6px 18px;
-    transition: all 0.25s ease;
+.stat-box {
+    flex: 1;
+    background: #f8fafc;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    transition: 0.3s ease;
 }
 
-.btn-success:hover {
-    background-color: #157347;
-    transform: translateY(-2px);
+.stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
 }
 
-/* ===== EMPTY ROW ===== */
-.text-muted {
-    font-style: italic;
+.stat-number {
+    font-size: 26px;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #64748b;
+}
+
+
+/* ===== TABLE ===== */
+.table-container {
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.04);
+    overflow: hidden;
+}
+
+.payroll-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.payroll-table thead {
+    background: #111827;
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+}
+
+.payroll-table th {
+    padding: 20px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.payroll-table td {
+    padding: 22px 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.payroll-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.muted {
+    color: #64748b;
     font-size: 14px;
 }
+
+.emp-name {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.salary {
+    font-weight: 600;
+    color: #16a34a;
+}
+
+
+/* ===== BADGES ===== */
+.dept-pill {
+    background: #e0f2fe;
+    color: #075985;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ===== BUTTON ===== */
+.btn-credit {
+    background: #dcfce7;
+    color: #166534;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-state i {
+    font-size: 60px;
+    color: #cbd5e1;
+}
+
+.empty-state h5 {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.empty-state p {
+    color: #64748b;
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+    .payroll-wrapper {
+        padding: 30px 20px;
+    }
+
+    .payroll-stats {
+        flex-direction: column;
+    }
+
+    .payroll-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+
 </style>
 
 {% endblock %}

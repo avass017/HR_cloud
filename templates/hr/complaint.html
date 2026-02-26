@@ -168,9 +168,9 @@ body, .container {
                             <td>{{ i.department }}</td>
                             <td>{{ i.date }}</td>
                             <td>
-                                <a href="{% url 'reply_add' i.id %}" class="btn-action btn-reply">
-                                    Reply
-                                </a>
+        <a href="{% url 'reply_add' i.id %}" class="btn-action btn-read">
+    Reply
+</a>
                             </td>
                             <td>
                                 <a href="{% url 'reply_view' i.id %}" class="btn-action btn-read">

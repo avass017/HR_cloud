@@ -71,7 +71,7 @@ def complaint_hr(request):
     data=Complaint.objects.all()
     return render(request,'hr/complaint.html',{'data':data})
 
-def reply_add(request):
+def reply_add(request,id):
 
     if request.method == "POST":
         form = ReplyRegister(request.POST)
@@ -85,7 +85,7 @@ def reply_add(request):
 
     return render(request, 'hr/reply.html', {'form': form})
 
-def reply_view(request):
+def reply_view(request,id):
     data=Reply.objects.all()
     return render(request,'hr/send_reply.html',{'data':data})
 
