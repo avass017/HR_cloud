@@ -5,232 +5,243 @@
 
 <style>
 
-/* ===== PAGE BACKGROUND ===== */
-body,
-html,
-.wrapper,
-.main-panel,
-.content-wrapper {
-    background: #f1f5f9 !important;
+/* ================= GLOBAL LAYOUT ================= */
+body, html, .wrapper, .main-panel, .content-wrapper {
+    background: #f4f6f9 !important;
     font-family: "Inter", sans-serif;
 }
 
-/* ===== MAIN CONTAINER ===== */
+/* Main centered container */
 .enterprise-container {
-    width: 100%;
-    padding: 50px 70px;
+    max-width: 1350px;
+    margin: auto;
+    padding: 60px 40px;
 }
 
-/* ===== HEADER ===== */
+/* ================= HEADER ================= */
 .top-bar {
     background: #ffffff;
-    padding: 30px 35px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    padding: 32px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .page-title {
     font-size: 26px;
     font-weight: 700;
-    color: #0f172a;
-    margin: 0;
+    color: #111827;
+    margin-bottom: 6px;
 }
 
 .page-desc {
     font-size: 14px;
-    color: #64748b;
-    margin-top: 6px;
+    color: #6b7280;
 }
 
 .user-badge {
-    background: linear-gradient(135deg,#6366f1,#4f46e5);
-    color: #ffffff;
-    padding: 8px 20px;
-    border-radius: 30px;
+    background: #eef2ff;
+    color: #3730a3;
+    padding: 10px 22px;
+    border-radius: 50px;
     font-size: 13px;
     font-weight: 600;
 }
 
-/* ===== KPI SECTION ===== */
+/* ================= KPI SECTION ================= */
 .kpi-row {
     display: flex;
-    gap: 25px;
-    margin-bottom: 35px;
+    gap: 30px;
+    margin-bottom: 45px;
 }
 
 .kpi-card {
     flex: 1;
-    background: linear-gradient(135deg,#4f46e5,#6366f1);
-    color: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(79,70,229,0.25);
-    transition: 0.3s ease;
-}
-
-.kpi-card:hover {
-    transform: translateY(-6px);
+    background: #ffffff;
+    padding: 30px 35px;
+    border-radius: 16px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.04);
 }
 
 .kpi-number {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
 }
 
 .kpi-label {
     font-size: 13px;
-    margin-top: 8px;
-    opacity: 0.85;
+    color: #6b7280;
 }
 
-/* ===== TABLE SECTION ===== */
-.table-section {
+/* ================= TABLE WRAPPER ================= */
+.table-wrapper {
     background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.06);
-    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+    padding: 25px 30px 10px 30px;
 }
 
-/* ===== TABLE ===== */
+/* ================= TABLE ================= */
 .project-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 12px;  /* ROW SPACING */
 }
 
-.project-table thead {
-    background: #0f172a;
-    color: white;
-    position: sticky;
-    top: 0;
-}
-
-.project-table th {
-    padding: 18px;
+/* Header */
+.project-table thead th {
     font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6b7280;
+    padding: 12px 20px;
+    text-align: left;
 }
 
-.project-table td {
-    padding: 20px 18px;
-    border-top: 1px solid #f1f5f9;
-    font-size: 14px;
-}
-
+/* Body rows */
 .project-table tbody tr {
-    transition: 0.25s ease;
+    background: #f9fafb;
+    border-radius: 12px;
 }
 
+.project-table tbody td {
+    padding: 22px 20px;
+    font-size: 14px;
+    color: #111827;
+    vertical-align: middle;
+}
+
+/* First and last cell rounded */
+.project-table tbody td:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.project-table tbody td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Column sizing */
+.project-table th:nth-child(1),
+.project-table td:nth-child(1) {
+    width: 5%;
+    text-align: center;
+}
+
+.project-table th:nth-child(2),
+.project-table td:nth-child(2) {
+    width: 30%;
+}
+
+.project-table th:nth-child(3),
+.project-table td:nth-child(3) {
+    width: 15%;
+    text-align: center;
+}
+
+.project-table th:nth-child(4),
+.project-table td:nth-child(4) {
+    width: 15%;
+    text-align: center;
+}
+
+.project-table th:nth-child(5),
+.project-table td:nth-child(5) {
+    width: 15%;
+    text-align: center;
+}
+
+.project-table th:nth-child(6),
+.project-table td:nth-child(6) {
+    width: 20%;
+    text-align: center;
+}
+
+/* Hover */
 .project-table tbody tr:hover {
-    background: #f8fafc;
+    background: #eef2ff;
+    transition: 0.2s ease;
 }
 
-/* ===== COLUMN STYLES ===== */
-.muted {
-    color: #64748b;
-}
-
+/* Project details */
 .project-name {
     font-weight: 600;
-    color: #0f172a;
+    margin-bottom: 4px;
 }
 
 .project-emp {
     font-size: 13px;
-    color: #64748b;
-    margin-top: 4px;
+    color: #6b7280;
 }
 
-/* ===== BADGES ===== */
+/* Badges */
 .dept-badge {
     background: #e0f2fe;
     color: #075985;
     padding: 6px 16px;
-    border-radius: 30px;
+    border-radius: 50px;
     font-size: 12px;
     font-weight: 600;
 }
 
-.status-badge.active {
+/* Status */
+.status-badge {
     background: #dcfce7;
     color: #166534;
-    padding: 6px 16px;
-    border-radius: 30px;
+    padding: 7px 18px;
+    border-radius: 50px;
     font-size: 12px;
     font-weight: 600;
 }
 
-/* ===== BUTTON ===== */
+/* Button */
 .btn-start {
-    background: linear-gradient(135deg,#2563eb,#1e40af);
-    color: white;
-    padding: 6px 18px;
-    border-radius: 30px;
+    background: #2563eb;
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 50px;
     font-size: 12px;
     font-weight: 600;
     text-decoration: none;
-    transition: 0.3s ease;
+    display: inline-block;
 }
 
 .btn-start:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(37,99,235,0.35);
+    background: #1d4ed8;
 }
 
-/* ===== EMPTY STATE ===== */
-.empty-box {
-    text-align: center;
-    padding: 70px 20px;
-}
-
-.empty-box i {
-    font-size: 55px;
-    color: #cbd5e1;
-}
-
-.empty-box h5 {
-    margin-top: 12px;
-    font-weight: 600;
-}
-
-.empty-box p {
-    color: #64748b;
-}
-
-/* ===== RESPONSIVE ===== */
+/* Responsive */
 @media (max-width: 992px) {
     .enterprise-container {
-        padding: 30px 20px;
+        padding: 40px 20px;
     }
 
     .kpi-row {
         flex-direction: column;
     }
 
-    .top-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+    .table-wrapper {
+        overflow-x: auto;
     }
 }
 
 </style>
 
-
 <div class="enterprise-container">
 
-    <!-- HEADER -->
     <div class="top-bar">
         <div>
-            <h1 class="page-title">Running Projects</h1>
-            <p class="page-desc">
+            <div class="page-title">Running Projects</div>
+            <div class="page-desc">
                 Monitor and manage all assigned projects efficiently
-            </p>
+            </div>
         </div>
 
         <div class="user-badge">
@@ -238,9 +249,7 @@ html,
         </div>
     </div>
 
-    <!-- KPI SECTION -->
     <div class="kpi-row">
-
         <div class="kpi-card">
             <div class="kpi-number">{{ data|length }}</div>
             <div class="kpi-label">Total Projects</div>
@@ -250,18 +259,10 @@ html,
             <div class="kpi-number">{{ data|length }}</div>
             <div class="kpi-label">Active Projects</div>
         </div>
-
-        <div class="kpi-card">
-            <div class="kpi-number">{{ request.user }}</div>
-            <div class="kpi-label">Logged Employee</div>
-        </div>
-
     </div>
 
-    <!-- TABLE -->
-    <div class="table-section">
+    <div class="table-wrapper">
         <table class="project-table">
-
             <thead>
                 <tr>
                     <th>#</th>
@@ -276,14 +277,14 @@ html,
             <tbody>
             {% for i in data %}
                 <tr>
-                    <td class="muted">{{ forloop.counter }}</td>
+                    <td>{{ forloop.counter }}</td>
 
                     <td>
                         <div class="project-name">{{ i.work_name }}</div>
                         <div class="project-emp">{{ i.employee_name }}</div>
                     </td>
 
-                    <td class="muted">{{ i.work_duration }}</td>
+                    <td>{{ i.work_duration }}</td>
 
                     <td>
                         <span class="dept-badge">
@@ -291,16 +292,15 @@ html,
                         </span>
                     </td>
 
-                    <td class="muted">{{ i.date }}</td>
+                    <td>{{ i.date }}</td>
 
                     <td>
                         {% if i.status %}
-                            <span class="status-badge active">
+                            <span class="status-badge">
                                 Started
                             </span>
                         {% else %}
-                            <a href="{% url 'Start_project' i.id %}"
-                               class="btn-start">
+                            <a href="{% url 'Start_project' i.id %}" class="btn-start">
                                 Start Project
                             </a>
                         {% endif %}
@@ -308,17 +308,12 @@ html,
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="6">
-                        <div class="empty-box">
-                            <i class="mdi mdi-folder-outline"></i>
-                            <h5>No Running Projects</h5>
-                            <p>No projects have been assigned yet.</p>
-                        </div>
+                    <td colspan="6" style="text-align:center; padding:40px;">
+                        No Running Projects Found
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
-
         </table>
     </div>
 

@@ -79,3 +79,26 @@ def complaint_m(request):
 def Log_out_m(request):
     logout(request)
     return redirect('login_view')
+
+from django.contrib.auth.decorators import login_required
+
+
+def manager_dashboard(request):
+
+    total_hrs = Hr.objects.count()
+    total_employees = Employee.objects.count()
+    total_projects = Work.objects.count()
+    total_payroll = Payroll.objects.count()
+    total_notifications = Notification.objects.count()
+    total_complaints = Complaint.objects.count()
+
+    context = {
+        "total_hrs": total_hrs,
+        "total_employees": total_employees,
+        "total_projects": total_projects,
+        "total_payroll": total_payroll,
+        "total_notifications": total_notifications,
+        "total_complaints": total_complaints,
+    }
+
+    return render(request, "manager/dashboard_m.html", context)

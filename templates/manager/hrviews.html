@@ -5,17 +5,7 @@
 
 <style>
 
-/* ================= FULL WINDOW PREMIUM PAGE ================= */
-
-body,
-.content-wrapper,
-.main-panel {
-    background: #f1f5f9 !important;
-    padding: 40px !important;
-    font-family: 'Inter', sans-serif;
-}
-
-/* ===== FULL WIDTH WRAPPER ===== */
+/* ================= PAGE WRAPPER ================= */
 .full-page {
     width: 100%;
     animation: fadeIn 0.6s ease-in-out;
@@ -101,7 +91,7 @@ body,
     transform: scale(1.01);
 }
 
-/* ===== BUTTONS ===== */
+/* ===== ACTION BUTTONS ===== */
 .btn-edit,
 .btn-delete {
     border-radius: 30px;
@@ -109,6 +99,7 @@ body,
     font-size: 13px;
     font-weight: 500;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 /* Edit */
@@ -167,7 +158,9 @@ body,
     <div class="page-toolbar">
         <div>
             <h2 class="page-title">Employee Management</h2>
-            <div class="page-subtitle">Manage employee records and organization data</div>
+            <div class="page-subtitle">
+                Manage employee records and organization data
+            </div>
         </div>
     </div>
 

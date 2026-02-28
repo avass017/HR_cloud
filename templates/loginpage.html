@@ -12,7 +12,7 @@ body {
     margin: 0;
     height: 100vh;
     font-family: 'Segoe UI', sans-serif;
-    background: url("https://images.unsplash.com/photo-1497366216548-37526070297c")
+    background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),url("https://img.republicworld.com/rimages/pexels-jane-trang-doan-1024248-171187660142416_9.webp")
                 no-repeat center center/cover;
     position: relative;
     overflow: hidden;
@@ -38,13 +38,13 @@ body::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(
+     background: linear-gradient(
         120deg,
-        rgba(15,23,42,0.88),
-        rgba(37,99,235,0.70),
-        rgba(15,23,42,0.88)
+        transparent,
+        rgba(255,255,255,0.08),
+        transparent
     );
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(0px);
     z-index: -1;
 }
 
@@ -150,19 +150,21 @@ body::before {
 }
 
 /* ================= BUTTON ================= */
+/* ================= BUTTON ================= */
 .btn-login {
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
-    color: white;
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+    color: #ffffff;
     font-weight: 600;
     border-radius: 12px;
     padding: 15px;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.2);
     transition: 0.4s ease;
 }
 
 .btn-login:hover {
     transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(59,130,246,0.5);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    background: linear-gradient(135deg, #111111, #000000);
 }
 
 /* ================= MODERN DIVIDER ================= */

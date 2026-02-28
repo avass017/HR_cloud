@@ -1,0 +1,113 @@
+{% extends "manager/manager.html" %}
+{% block content %}
+
+<style>
+
+/* ===== Plain Background ===== */
+body {
+    background-color: #f3f4f6;
+}
+
+/* ===== Container ===== */
+.dashboard-container {
+    padding: 40px;
+}
+
+/* ===== Page Title ===== */
+.dashboard-title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    color: #111827;
+}
+
+/* ===== Grid ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+/* ===== Cards ===== */
+.stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    position: relative;
+}
+
+/* Number */
+.stat-number {
+    font-size: 34px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+/* Label */
+.stat-label {
+    font-size: 14px;
+    color: #6b7280;
+    margin-top: 6px;
+}
+
+/* Icon */
+.stat-icon {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-size: 45px;
+    opacity: 0.1;
+}
+
+</style>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-title">
+        Manager Dashboard Overview
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-number">{{ total_hrs }}</div>
+            <div class="stat-label">Total HR Managers</div>
+            <i class="mdi mdi-account-tie stat-icon"></i>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">{{ total_employees }}</div>
+            <div class="stat-label">Total Employees</div>
+            <i class="mdi mdi-account-group stat-icon"></i>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">{{ total_projects }}</div>
+            <div class="stat-label">Total Projects</div>
+            <i class="mdi mdi-briefcase stat-icon"></i>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">{{ total_payroll }}</div>
+            <div class="stat-label">Payroll Records</div>
+            <i class="mdi mdi-cash-multiple stat-icon"></i>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">{{ total_notifications }}</div>
+            <div class="stat-label">Notifications Sent</div>
+            <i class="mdi mdi-bell-ring stat-icon"></i>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">{{ total_complaints }}</div>
+            <div class="stat-label">Complaints Received</div>
+            <i class="mdi mdi-alert-circle stat-icon"></i>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

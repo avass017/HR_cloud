@@ -5,33 +5,31 @@
 
 <style>
 
-/* ================= MANAGER PREMIUM FORM ================= */
+/* ================= ENTERPRISE MANAGER FORM ================= */
 
-body,
-.content-wrapper,
-.main-panel {
+body {
     background: linear-gradient(135deg, #eef2ff, #f8fafc) !important;
-    padding: 60px !important;
     font-family: 'Inter', sans-serif;
 }
 
-/* ===== FULL PAGE WRAPPER ===== */
-.manager-form-wrapper {
-    max-width: 1000px;
-    margin: auto;
+/* ===== MAIN CONTAINER ===== */
+.manager-container {
+    max-width: 950px;
+    margin: 60px auto;
+    padding: 0 20px;
     animation: fadeUp 0.6s ease;
 }
 
-/* ===== PAGE HEADER ===== */
+/* ===== HEADER ===== */
 .manager-header {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .manager-title {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 600;
     color: #0f172a;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .manager-subtitle {
@@ -39,54 +37,58 @@ body,
     color: #64748b;
 }
 
-/* ===== PREMIUM CARD ===== */
+/* ===== CARD ===== */
 .manager-card {
     background: #ffffff;
-    border-radius: 24px;
-    padding: 50px;
-    box-shadow: 0 25px 70px rgba(0,0,0,0.06);
-    transition: 0.4s ease;
+    border-radius: 22px;
+    padding: 45px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.05);
     position: relative;
     overflow: hidden;
+    transition: 0.3s ease;
 }
 
 .manager-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.08);
+    box-shadow: 0 25px 70px rgba(0,0,0,0.08);
 }
 
-/* Gradient Top Border */
+/* Gradient Accent */
 .manager-card::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    height: 6px;
+    height: 5px;
     width: 100%;
     background: linear-gradient(90deg, #4f46e5, #3b82f6, #06b6d4);
 }
 
-/* ===== INPUTS ===== */
+/* ===== FORM FIELDS ===== */
 input,
 select,
 textarea {
-    border-radius: 10px !important;
+    border-radius: 12px !important;
     border: 1px solid #e2e8f0 !important;
-    padding: 12px !important;
+    padding: 12px 14px !important;
     font-size: 14px !important;
-    transition: 0.3s ease !important;
+    transition: all 0.25s ease !important;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
     border-color: #4f46e5 !important;
-    box-shadow: 0 0 0 3px rgba(79,70,229,0.15) !important;
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.12) !important;
 }
 
-/* ===== ACTION AREA ===== */
+/* Better spacing between form groups */
+.form-group {
+    margin-bottom: 22px;
+}
+
+/* ===== ACTION BUTTONS ===== */
 .form-actions {
-    margin-top: 40px;
+    margin-top: 35px;
     padding-top: 25px;
     border-top: 1px solid #f1f5f9;
     display: flex;
@@ -94,13 +96,14 @@ textarea:focus {
     gap: 15px;
 }
 
-/* Cancel Button */
+/* Cancel */
 .btn-cancel {
     border-radius: 30px;
-    padding: 10px 25px;
+    padding: 10px 28px;
     border: 1px solid #cbd5e1;
     background: white;
     color: #475569;
+    font-size: 14px;
     transition: 0.3s;
 }
 
@@ -108,27 +111,28 @@ textarea:focus {
     background: #f1f5f9;
 }
 
-/* Submit Button */
+/* Submit */
 .btn-submit {
     border-radius: 30px;
-    padding: 10px 30px;
+    padding: 10px 32px;
     background: linear-gradient(90deg, #4f46e5, #3b82f6);
     border: none;
     color: white;
+    font-size: 14px;
     font-weight: 500;
     transition: 0.3s ease;
 }
 
 .btn-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(59,130,246,0.3);
+    box-shadow: 0 10px 30px rgba(59,130,246,0.25);
 }
 
 /* ===== ANIMATION ===== */
 @keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(25px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -138,10 +142,9 @@ textarea:focus {
 
 </style>
 
+<div class="manager-container">
 
-<div class="manager-form-wrapper">
-
-    <!-- ===== HEADER ===== -->
+    <!-- HEADER -->
     <div class="manager-header">
         <div class="manager-title">Manager Form</div>
         <div class="manager-subtitle">
@@ -149,7 +152,7 @@ textarea:focus {
         </div>
     </div>
 
-    <!-- ===== CARD ===== -->
+    <!-- CARD -->
     <div class="manager-card">
 
         <form method="POST">

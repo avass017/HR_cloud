@@ -118,3 +118,26 @@ def reject_leave(request, id):
 def Log_out_hr(request):
     logout(request)
     return redirect('login_view')
+
+
+
+
+def hr_dashboard(request):
+
+    total_employees = Employee.objects.count()
+    total_projects = Work.objects.count()
+    total_payroll = Payroll.objects.count()
+    total_leaves = Leave.objects.count()
+    total_complaints = Complaint.objects.count()
+    total_overtime = Overtime.objects.count()
+
+    context = {
+        "total_employees": total_employees,
+        "total_projects": total_projects,
+        "total_payroll": total_payroll,
+        "total_leaves": total_leaves,
+        "total_complaints": total_complaints,
+        "total_overtime": total_overtime,
+    }
+
+    return render(request, "hr/hrdashboard.html", context)

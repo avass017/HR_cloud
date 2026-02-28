@@ -63,5 +63,9 @@ path('reject_leave/<int:id>/', hrviews.reject_leave, name='reject_leave'),
 path('Log_out',empviews.Log_out,name='Log_out'),
 path('Log_out_m',managerviews.Log_out_m,name='Log_out_m'),
 path('Log_out_hr',hrviews.Log_out_hr, name='Log_out_hr'),
+path('employee_dashboard/', empviews.employee_dashboard, name='employee_dashboard'),
+path('dashboard/', hrviews.hr_dashboard, name='hr_dashboard'),
+path('manager/dashboard/', managerviews.manager_dashboard, name='manager_dashboard'),
+
 
 ]

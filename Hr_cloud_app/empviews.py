@@ -131,3 +131,26 @@ def leave_view(request):
 def Log_out(request):
     logout(request)
     return redirect('login_view')
+
+def employee_dashboard(request):
+
+    employee = Employee.objects.get(employee_details=request.user)
+
+    total_projects = Work.objects.count()
+    active_projects = Work.objects.filter(status=True).count()
+    total_complaints = Complaint.objects.filter(complaint_details=employee).count()
+    total_overtime = Overtime.objects.filter(employee=employee).count()
+    total_leave = Leave.objects.filter(employee=employee).count()
+    salary_count = Payroll.objects.filter(payroll_details=employee).count()
+
+    context = {
+        'employee': employee,
+        'total_projects': total_projects,
+        'active_projects': active_projects,
+        'total_complaints': total_complaints,
+        'total_overtime': total_overtime,
+        'total_leave': total_leave,
+        'salary_count': salary_count,
+    }
+
+    return render(request, 'employee/dashboard.html', context)

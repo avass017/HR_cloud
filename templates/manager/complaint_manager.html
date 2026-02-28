@@ -4,18 +4,19 @@
 {% block content %}
 
 <style>
-
 /* ===== PAGE BACKGROUND ===== */
 body,
 .content-wrapper,
 .main-panel {
-    background: linear-gradient(135deg, #fdf2f2, #f8fafc) !important;
-    padding: 40px !important;
+    background: linear-gradient(135deg, #fdf2f2, #f8fafc);
     font-family: 'Inter', sans-serif;
+    padding: 0;
+    margin: 0;
 }
 
 /* ===== WRAPPER ===== */
 .complaint-wrapper {
+    padding: 40px 20px;
     animation: fadeUp 0.6s ease;
 }
 
@@ -23,19 +24,24 @@ body,
 .page-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
 .page-title {
     font-size: 26px;
     font-weight: 600;
     color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .page-subtitle {
     font-size: 14px;
     color: #64748b;
+    margin-top: 4px;
 }
 
 /* ===== SUMMARY CARD ===== */
@@ -46,6 +52,7 @@ body,
     color: white;
     box-shadow: 0 20px 50px rgba(239,68,68,0.25);
     transition: 0.4s ease;
+    text-align: center;
 }
 
 .summary-card:hover {
@@ -55,6 +62,7 @@ body,
 .summary-card h3 {
     font-size: 30px;
     font-weight: 600;
+    margin-top: 8px;
 }
 
 /* ===== MAIN CARD ===== */
@@ -82,12 +90,14 @@ body,
 .search-bar input:focus {
     border-color: #ef4444;
     box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+    outline: none;
 }
 
 /* ===== TABLE ===== */
 .premium-table {
     border-collapse: separate;
     border-spacing: 0 12px;
+    width: 100%;
 }
 
 .premium-table thead th {
@@ -95,6 +105,7 @@ body,
     font-size: 14px;
     color: #334155;
     border: none;
+    padding: 12px 15px;
 }
 
 .premium-table tbody tr {
@@ -110,7 +121,7 @@ body,
 }
 
 .premium-table td {
-    padding: 18px 15px;
+    padding: 15px 15px;
     border-top: none !important;
 }
 
@@ -129,11 +140,12 @@ body,
     padding: 6px 16px;
     border-radius: 20px;
     font-weight: 500;
+    display: inline-block;
 }
 
 /* Empty State */
 .empty-state {
-    padding: 60px;
+    padding: 60px 20px;
     text-align: center;
     color: #64748b;
 }
@@ -150,6 +162,24 @@ body,
     }
 }
 
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .search-bar input {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 10px;
+    }
+
+    .summary-card {
+        margin-bottom: 20px;
+    }
+}
 </style>
 
 <div class="complaint-wrapper">
@@ -180,7 +210,7 @@ body,
     <!-- MAIN TABLE CARD -->
     <div class="table-card">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
             <p class="text-muted mb-0">
                 Review submitted complaints by department and date.
             </p>
@@ -206,22 +236,12 @@ body,
                 {% for i in data %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-
-                        <td class="fw-semibold">
-                            {{ i.subject }}
-                        </td>
-
+                        <td class="fw-semibold">{{ i.subject }}</td>
                         <td>
-                            <span class="dept-badge">
-                                {{ i.department }}
-                            </span>
+                            <span class="dept-badge">{{ i.department }}</span>
                         </td>
-
-                        <td class="text-muted">
-                            {{ i.date }}
-                        </td>
+                        <td class="text-muted">{{ i.date }}</td>
                     </tr>
-
                 {% empty %}
                     <tr>
                         <td colspan="4">

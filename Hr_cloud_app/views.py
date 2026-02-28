@@ -24,13 +24,13 @@ def login_view(request):
             login(request, user)
 
             if user.is_staff:
-                return redirect('manager')
+                return redirect('manager_dashboard')
 
             elif user.is_hr:
-                return redirect('hr')
+                return redirect('hr_dashboard')
 
             elif user.is_employee:
-                return redirect('employe')
+                return redirect('employee_dashboard')
 
         else:
             messages.info(request, 'Invalid')
@@ -43,7 +43,7 @@ def hr(request):
     return render(request,'hr/dashhr.html')
 
 def employe(request):
-    return render(request,'employee/dashemp.html')
+    return render(request,'employee/dashboard.html')
 
 
 def hr_add(request):
