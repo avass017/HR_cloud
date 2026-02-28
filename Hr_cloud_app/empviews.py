@@ -66,15 +66,16 @@ def complaint_add(request):
     return render(request, 'employee/complaint.html', {'form': form})
 
 def complaint_view(request):
-    employee = Employee.objects.get(employee_details=request.user)
+    employee = request.user.employee
     data = Complaint.objects.filter(complaint_details=employee)
-    return render(request,'employee/complaint_view.html',{'data':data})
+    return render(request, 'employee/complaint_view.html', {'data': data})
 
-def reply_view(request):
+def reply_view_e(request):
     employee = Employee.objects.get(employee_details=request.user)
-    data = Reply.objects.filter(complaint__employee=employee)
-    return render(request,'employee/complaint_reply.html',{'data':data})
+    data = Reply.objects.filter(reply_details=employee)
+    return render(request, 'employee/complaint_reply.html', {'data': data})
 
+ 
 
 def overtime(request):
 

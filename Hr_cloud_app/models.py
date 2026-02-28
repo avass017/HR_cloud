@@ -109,9 +109,9 @@ class Complaint(models.Model):
     status = models.BooleanField(default=False)
 
 class Reply(models.Model):
-
-  subject = models.CharField(max_length=200)
-  date_time = models.DateTimeField(auto_now_add=True)
+    reply_details = models.ForeignKey("Employee", on_delete=models.CASCADE)
+    subject = models.CharField(max_length=200)
+    date_time = models.DateTimeField(auto_now_add=True)
 
 class Notification(models.Model):
     message= models.TextField()

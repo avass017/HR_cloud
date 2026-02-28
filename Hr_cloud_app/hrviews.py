@@ -78,14 +78,14 @@ def reply_add(request,id):
 
         if form.is_valid():
             form.save()
-            return redirect('reply_view')
+            return redirect('complaint_hr')
 
     else:
         form = ReplyRegister()
 
     return render(request, 'hr/reply.html', {'form': form})
 
-def reply_view(request,id):
+def reply_view_hr(request,id):
     data=Reply.objects.all()
     return render(request,'hr/send_reply.html',{'data':data})
 
